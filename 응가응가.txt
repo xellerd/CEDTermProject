@@ -1,0 +1,10 @@
+cd directory //디렉토리 변경
+ls //디레토리 파일 목록 출력
+
+//원격 저장소 내용 받아오기
+git push
+
+//로컬 저장소 내용 올리기
+git add . //디렉토리 내 모든 파일 선택
+git commit -m 'message'
+git push //업로드(최종)
