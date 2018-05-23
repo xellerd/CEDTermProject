@@ -33,15 +33,15 @@ class Elevator:
 #     3. sum이 minimum인 경우에 탑승
 
 
-random - (time, passenger, from, to)
-
-time = 0
-
-while(1){
-if time == random.time
-
-time++
-if time == 10000
-break;
-
-}
+# random - (time, passenger, from, to)
+#
+# time = 0
+#
+# while(1){
+# if time == random.time
+#
+# time++
+# if time == 10000
+# break;
+#
+# }
