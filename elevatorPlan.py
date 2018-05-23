@@ -1,10 +1,10 @@
 class Elevator:
     def __init__(self, passenger, direction, destination1, destination2, elevatorFloor):
-        self.passenger = passenger
-        self.direction = direction
-        self.destinationUp = destinationUp
-        self.destinationDown = destinationDown
-        self.elevatorFloor = elevatorFloor
+        self.passenger = passenger #integer or #list
+        self.direction = direction #integer 3
+        self.destinationUp = destinationUp #list
+        self.destinationDown = destinationDown #list
+        self.elevatorFloor = elevatorFloor #integer
 
     def call(self, floor, direction):
         #[0, floor]를 한 요소로 self.destinationUp or self.destinationDown에 append, sort, reverse if nesessary
@@ -19,6 +19,7 @@ class Elevator:
 
     #시간에 따른 이동 표현 어떻게?
 
+# 난수 생성 알고리즘
 
 # 새 엘리베이터 배차 방법
 # method 1:
@@ -30,3 +31,17 @@ class Elevator:
 #     1. 모든 엘리베이터에 가상으로 추가를 함
 #     2. 엘리베이터 탑승 인원의 소요시간을 모두 sum
 #     3. sum이 minimum인 경우에 탑승
+
+
+random - (time, passenger, from, to)
+
+time = 0
+
+while(1){
+if time == random.time
+
+time++
+if time == 10000
+break;
+
+}
