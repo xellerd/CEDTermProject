@@ -76,7 +76,7 @@ class Elevator:
                     dest.append(destDown)
 
 
-    def move: #엘리베이터 방향 제어, 목적지 리스트를 기반으로 엘리베이터의 움직임 제어 
+    def move: #엘리베이터 방향 제어, 목적지 리스트를 기반으로 엘리베이터의 움직임 제어
         #if dest = [] dir = stop
         # if dest[0][0] > dest[0][1] dir = DOWN
 
