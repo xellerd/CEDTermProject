@@ -1,20 +1,59 @@
 class Oldelevator:
+	waittime = 5
+	uptime=5
+	downtime=5
 def __init__(self, num, passanger, direction, elevelocation) #엘리베이터 이름, 승객수, 방향, 현 위치
 
 	self.num = num
 	self.passanger = 0
 	self.direction = None
 	self.elevlocation = elevlocation
+#call 받은 엘리베이터 이동 명령
+def move(self, up, down,stop,wait):
+	self. up = elevelocation ++
+	self. down = elevelocation --
+	self. stop = None
 
 
-#엘리베이터 사용자가 누른 방향
-def call(self,floor,direction):
-	if direction not in (1,-1):
-		print("1,-1이외의 방향 없음.")
-	elif direction = 1:
-		if elev.direction = 1:
-			println("")
-		else:
+	if elevlocation<floor:
+		if call.direction = 1 or -1:
+			self.up
+			++uptime
+			if elevlocation = floor:
+				self.stop
+				++waittime
+				call.floors[self.floor].remove(self)
+	elif elevlocation>floor:
+		if call.direction = -1 or 1:
+			self.down
+			++downtime
+			if elevlocation = floor:
+				self.stop
+				++waittime
+
+def call(self, floor):
+	floor=[1,2,3,4,5,6,7,8,9,10,11,12]
+	floors = [self.floor]
+	destination[].append()
+	if floor = elevlocation :
+		destination[].remove()
+
+
+	# call의 내용을 불러와야한다. destlist에 추가.
+
+
+
+#목적층 입력, sort 필요: 가까운 목적층 먼저 도착.
+def dest(self,destination):
+	self.destination=[]
+	
+	
+
+		destup.sort()
+
+		if destination < floor:
+
+
 	if self.floors[floor]:
     elevator = self.choose_elevator(self.floors[floor], direction)
     elevator.open()
@@ -26,21 +65,8 @@ def call(self,floor,direction):
 		else:
 
 
-
-
-
-
-def take():
-
-def getoff():
-
-
-
-
-
-
-
-
+def totaltime():
+# 사용자 마다 걸린 시간 + 엘리베이터 이동 시간 / 사용자 수?
 
 
 
