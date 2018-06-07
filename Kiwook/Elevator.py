@@ -94,7 +94,6 @@ def call(ev1, ev2, ev3, passenger, startingPoint, destination, to):
 
     # weight cut
 
-
     #tempEv에 각각 넣어서 토탈 타임을 계산해보고 가장 적은 엘리베이터에 배차
     if tempEv1.totalTime() <= tempEv2.totalTime() and tempEv1.totalTime() <= tempev3.totalTime():
         ev1.addDest(onList, offList)

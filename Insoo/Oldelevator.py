@@ -2,80 +2,61 @@ class Oldelevator:
 	waittime = 5
 	uptime=5
 	downtime=5
-def __init__(self, num, passanger, direction, elevelocation) #엘리베이터 이름, 승객수, 방향, 현 위치
+def __init__(self, num, passanger, direction, elevelocation): #엘리베이터 이름, 승객수, 방향, 현 위치
 
 	self.num = num
 	self.passanger = 0
 	self.direction = None
-	self.elevlocation = elevlocation
+	self.elevlocation = 0
+
+
 #call 받은 엘리베이터 이동 명령
 def move(self, up, down,stop,wait):
-	self. up = elevelocation ++
-	self. down = elevelocation --
+	self. up = elevelocation+1
+	self. down = elevelocation-1
 	self. stop = None
 
+	while call.destlist[]!=None :
+		if elevlocation<floor:
+			if call.direction ==1or -1:
+				elevlocation.up
+				++uptime
+				if elevlocation == floor:
+					elevlocation.stop
+					++waittime
+					call.floors[self.floor].remove(self)
+		elif elevlocation>floor:
+			if call.direction == -1 or 1:
+				elevlocation.down
+				++downtime
+				if elevlocation == floor:
+					elevlocation.stop
+					++waittime
+					call.floors[self.floor].remove(self)
 
-	if elevlocation<floor:
-		if call.direction = 1 or -1:
-			self.up
-			++uptime
-			if elevlocation = floor:
-				self.stop
-				++waittime
-				call.floors[self.floor].remove(self)
-	elif elevlocation>floor:
-		if call.direction = -1 or 1:
-			self.down
-			++downtime
-			if elevlocation = floor:
-				self.stop
-				++waittime
-
-def call(self, floor):
+def call(self, floor,destination):
 	floor=[1,2,3,4,5,6,7,8,9,10,11,12]
 	floors = [self.floor]
-	destination[].append()
-	if floor = elevlocation :
-		destination[].remove()
+	destlist = [self.destination]
 
-
-	# call의 내용을 불러와야한다. destlist에 추가.
-
-
-
-#목적층 입력, sort 필요: 가까운 목적층 먼저 도착.
-def dest(self,destination):
-	self.destination=[]
-	
-	
-
-		destup.sort()
-
-		if destination < floor:
-
-
-	if self.floors[floor]:
-    elevator = self.choose_elevator(self.floors[floor], direction)
-    elevator.open()
-    return elevator
-
-	else:
-		if elev.direction = -1:
-
-		else:
-
-
+	if elevlocation < floor and direction == 1:
+			destlist.append(self.destination)
+			destlist.sort()
+		if floors[] != destlist[] :
+			destlist.remove(self.destination)
+			destlist
 def totaltime():
 # 사용자 마다 걸린 시간 + 엘리베이터 이동 시간 / 사용자 수?
 
 
 
 
-def move(self, system):
-	system.floors[self.floor].remove(self)
-    self.floor += self.direction
-    system.floors[self.floor].append(self)
-    print("현 층수는{}",self.elevelocation)#엘리베이터 이동방향에 맞게 +1층 -1층
+def display(self, system):
+	if call.destlistination.update():
+		print("현 위치는 %d 층 입니다.", )
+
+	print("현재 엘리베이터 위치 <%s층> 입니다.",elevlocation)
+    print("방향은 <%d>방향입니다.",direction)#엘리베이터 이동방향에 맞게 +1층 -1층
 
 
 
