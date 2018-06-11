@@ -7,6 +7,7 @@
 		#엘리베이터가 올라갈때는 Movelist = Upfloor + destination 더해서 sort // 만약 현 상황에서 해결 불가능이라면 -> floor 리스트에 계속해서 저자.
 		#엘리베이터 방향이 바뀔 때 Movelist change
 		#Special case = 
+
 class Oldelevator:
 	waittime = 5
 	uptime=5
@@ -17,11 +18,15 @@ class Oldelevator:
 			self.passanger = passanger
 			self.direction = direction
 			self.elevlocation = elevlocation
+
+
 		def getdestination(self, destination):
 			destination[] = input(self. destination) #random값 등록.(나중에)
 			while True:
 				destination[].append(self.destination)
 			print("현 등록 목적층 :" + destination)
+
+
 		def inner_destination(self, destinations):
 			if self.destinations[destination]:
 				elevator = self.inner_destination(self.destinations[destination])
@@ -73,7 +78,7 @@ class Oldelevator:
 
 
 					elif direction == -1:
-						slee(2)
+						sleep(2)
 						elevlocation --
 						Movelist[]= downfloor[]+destination[]
 						Movelist[].sort()
@@ -82,7 +87,7 @@ class Oldelevator:
 
 						elif elevlocation in Movelist[]:
 							elevlocation = elevlocation
-							elevator.printinf()
+							elevator.printinfo()
 							sleep(5)
 						else:
 							pass
