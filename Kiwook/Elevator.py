@@ -131,8 +131,11 @@ def call(ev1, ev2, ev3, passenger, startingPoint, destination, to):
             expect1 += dest[i][1]
     #if expect1 > MAXLOAD->버림
 
+<<<<<<< HEAD
     # tempEv 목적지 추가
 
+=======
+>>>>>>> d51da128fd213d3313dfba7e3bae4a67f6243c68
     #tempEv에 각각 넣어서 토탈 타임을 계산해보고 가장 적은 엘리베이터에 배차
 
     timeList = [tempEv1.totalTime(), tempEv2.totalTime(), tempev3.totalTime()]
