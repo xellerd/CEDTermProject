@@ -1,0 +1,48 @@
+def getOn(self):
+    self.weight += dest[0][1]
+
+def getOff(self, time):
+    self.weight += dest[0][1]
+    dest[0][3] ==       #id
+
+def arrive():
+    self.weight += dest[0][1]
+    a = dest.pop(0)
+    if self.dir == UP:
+        destUp.pop(0)
+    elif self.dir == DOWN:
+        destDown.pop(0)
+
+
+        def move(self, time):
+            if self.door == CLOSE:
+                if self.dir == STOP:
+                    self.T = time
+                elif self.dir == UP:
+                    if (time - self.T) == MOVINGTIME:
+                        self.floor++
+                        self.T = time
+                        if floor == dest[0][0]:
+                            self.arrive()
+                elif self.dir == DOWN:
+                    if (time - self.T) == MOVINGTIME:
+                        self.floor--
+                        self.T = time
+                        if floor == dest[0][0]:
+                            self.arrive()
+            elif self.door == OPEN:
+                if (time - self.T) == STOPTIME:
+                    self.T = time
+                    self.door = CLOSE\\
+
+
+
+
+
+
+
+
+
+
+# passenger = [0id, 1time, 2departure, 3arrival, 4weight, 5arrivalTime]
+# dest = [0floor, 1weight, 2id, 3time]

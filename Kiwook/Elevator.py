@@ -22,6 +22,8 @@ class Elevator:
     # def getOn(self): #무게 추가
     #
     # def getOff(self): #무게 감소 및 목적지 리스트 요소 삭제
+    passenger = [id, time, departure, arrival, arrivalTime]
+    dest = [floor, weight, id, time]
 
     def getOnOff(self):
         self.passenger += dest[0][1]
@@ -102,6 +104,8 @@ class Elevator:
                     T = t
                     self.door = CLOSE
 
+    move 함수 on 1 off 2 move 3 stop = 0
+
 
 
     def totalTime: #엘리베이터 승객들의 전체 예상 소요시간을 계산
@@ -130,12 +134,9 @@ def call(ev1, ev2, ev3, passenger, startingPoint, destination, to):
     # tempEv 목적지 추가
 
     #tempEv에 각각 넣어서 토탈 타임을 계산해보고 가장 적은 엘리베이터에 배차
-    if tempEv1.totalTime() <= tempEv2.totalTime() and tempEv1.totalTime() <= tempev3.totalTime():
-        ev1.addDest(onList, offList)
-    elif tempEv2.totalTime() <= tempEv1.totalTime() and tempEv1.totalTime() <= tempev1.totalTime():
-        ev2.addDest(onList, offList)
-    elif tempEv3.totalTime() <= tempEv1.totalTime() and tempEv3.totalTime() <= tempev2.totalTime():
-        ev3.addDest(onList, offList)
+
+    timeList = [tempEv1.totalTime(), tempEv2.totalTime(), tempev3.totalTime()]
+    timeList.index(min(timeList))
 
 
 #main
