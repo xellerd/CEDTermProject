@@ -2,6 +2,52 @@
 # 기존 엘리베이터는 분할 호출방식
 # - 방향먼저,-> 그다음에 가까운 위치
 
+import random
+
+
+class dispatch:
+
+
+class elevator:
+	def move():
+
+
+
+class randomNumber: #난수 발생 클래스
+	def __init__(self):
+		pass
+
+	def userinfo(self):
+		time = random.randint(1,5)
+		userNum = random.randint(1, 2)
+		destination = random.randint(1, 10)
+		start = random.randint(1, 10)
+		button = random.randint(1, 3) #어떤 엘베 라인의 버튼을 호출했는가임
+		return time, userNum, destination, start, button
+
+	def elevatorinfo(self):
+		direction = random.randint(0, 2) #0은 정지, 1은 위, 2는 아래 움직이고 있는 상태
+		passenger = random.randint(1, 3)
+		floor = random.randint(1, 10)
+		return direction, passenger, floor
+
+#승객 3그룹 상태정보
+user1 = randomNumber()
+user1.userinfo()
+user2 = randomNumber()
+user2.userinfo()
+user3 = randomNumber()
+user3.userinfo()
+#엘리베이터 3대 상태 정보
+elevator1 = randomNumber()
+elevator1.elevatorinfo()
+elevator2 = randomNumber()
+elevator2.elevatorinfo()
+elevator3 = randomNumber()
+elevator3.elevatorinfo() 
+
+
+
 def Destination(self, destination):
 	destination = [self.destination]
 
