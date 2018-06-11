@@ -1,111 +1,136 @@
 import pygame
+import sys
 from pygame.locals import*
 from time import sleep
 WINDOW_WIDTH = 450
-WINDOW_HEIGHT = 1200
+WINDOW_HEIGHT = 430
 WHITE=(255,255,255)
 RED=(255,0,0)
 BLUE =(0,0,255)
+BLACK=(0,0,0)
 CAPTION="Oldelevator"
 #층수 12층
-elevator_width = 50
-elevator_height = 100
-UPRIGHT = 'upright'
-
-waittime = 5
-uptime=5
-downtime=5
-elevlocation = 1100
-
-
+elevator_width = 30
+elevator_height = 10
+f1 = 1100
+f2 = 1000
+f3 = 900
+f4 = 800
+f5 = 700
+f6 = 600
+f7 = 500
+f8 = 400
+f9 = 300
+f10 = 200
+f11 = 100
+f12 = 0
+Floors=[f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12]
 
 def drawObject(obj,x,y):
 	global gamePad
 	gamePad.blit(obj,(x,y))
 
+def dispMessage(text,y):
+	global gamePad
+	largeText = pygame.font.Font('Rock.ttf',12)
+	TextSurf, TextRect = textObject(text,largeText)
+	TextRect.center = (220,y)
+	gamePad.blit(TextSurf, TextRect)
+	pygame.display.update()
+
 def textObject(text,font):
 	textSurface = font.render(text,True,RED)
 	return textSurface, textSurface.get_rect()
 
-def dispMessage(text):
+def elev1_info(text,passenger):
 	global gamePad
-	largeText = pygame.font.Font('GILLUBCD.ttf',10)
+	largeText = pygame.font.Font('ROCK.ttf',10)
 	TextSurf, TextRect = textObject(text,largeText)
-	TextRect.center = (400,10)
+	TextRect.center = (200,40)
+	gamePad.blit(TextSurf, TextRect)
+	# 현재 시간과 passanger[1]이 같아지면 탑승객 정보를 띄운다.
+	# passenger = [0id, 1time, 2departure, 3arrival, 4weight,] 5arrivalTime]
+	if onlist[1] == time:
+		textObject(text,largeText)
+		TextRect.center = (200,50)
+	pygame.display.update()
+
+def elev2_info(text):
+	global gamePad
+	largeText = pygame.font.Font('ROCK.ttf',10)
+	TextSurf, TextRect = textObject(text,largeText)
+	TextRect.center = (200,180)
 	gamePad.blit(TextSurf, TextRect)
 	pygame.display.update()
-	sleep(1)
-	move()
 
-def input_in():
-	dispMessage('%d층에서 %d명이 %d방향 호출',floor,passanger,direction) #변수명에 따라 조정필요
-def input_out():
-	# move에 추가해줘야할 내용 : if 
+def elev3_info(text):
+	global gamePad
+	largeText = pygame.font.Font('ROCK.ttf',10)
+	TextSurf, TextRect = textObject(text,largeText)
+	TextRect.center = (200,330)
+	gamePad.blit(TextSurf, TextRect)
+	pygame.display.update()
+
+
 def move(): # rungame()
 	global clock, gamePad, elevator1,elevator2,elevator3
 	passanger_count=0
 	elevator_xy=[]
 	gamePad.fill(WHITE)
-	b1_y=10
-	b2_y=10
-	b3_y=10
+	b1_y=400
+	b2_y=400
+	b3_y=400
+
 
 	#엘리베이터 루프
 	while True:
 		#elev 시스템 종료
 		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				finish=True
-		#elev 알고리즘 방향키 위 누르면
+			if event.type == QUIT:
+				pygame.quit()
+				sys.exit()
+		#elev 알고리즘 방향키 위 누르면 t실행해보는걸로 하자
 		# if pressed[pygame.K_UP]:
 			#다다다다다다다닥
+		#Ver1 보면 아마 에리베이터 위치도 초기화 되어 있을 것이당.
+		# b1_y = ev1.엘리베이터 위치
+		# b2_y = ev2.엘리베이터 위치
+		# b3_y = ev3.엘리베이터 위치
 
-
-
-		b1 = {'rect':pygame.Rect(0,b1_y,elevator_height,elevator_width)}
-		b2 = {'rect':pygame.Rect(150,b2_y,elevator_height,elevator_width)}
-		b3 = {'rect':pygame.Rect(300,b3_y,elevator_height,elevator_width)}
+		b1 = {'rect':pygame.Rect(10,b1_y,elevator_height,elevator_width)}
+		b2 = {'rect':pygame.Rect(40,b2_y,elevator_height,elevator_width)}
+		b3 = {'rect':pygame.Rect(70,b3_y,elevator_height,elevator_width)}
 		boxes =[b1,b2,b3]
 		for b in boxes:
 			pygame.draw.rect(gamePad,RED, b['rect'])
 
-		# if Movelist[] != None:
-		# 	if direction == 1 : 
-		# 		sleep(2)
-		# 		elevlocation ++
-						
 
-		# 		Movelist[]= upfloor[]+destination[]
-		# 		Movelist[].sort()
-		# 		if  elevlocation>floor:
-		# 			upfloor[].append(floor)
 
-		# 		elif elevlocation in Movelist[]:
-		# 			elevlocation = elevlocation
-		# 			elevator.printinfo()
-		# 			sleep(5)
-		# 		else:
-		# 			pass
-						
+		floor_end=[400,370,340,310,280,250,220,190,160,130,100,70]
+		for h in floor_end:	
+			pygame.draw.line(gamePad, BLACK, (0,h),(100,h),1)
+		pygame.draw.line(gamePad, BLACK, (100,10),(100,490),3)
 
 
 
-		# 	elif direction == -1:
-		# 		sleep(2)
-		# 		elevlocation --
-		# 		Movelist[]= downfloor[]+destination[]
-		# 		Movelist[].sort()
-		# 		if elevlocation<floor:
-		# 			downfloor[].append(floor)
-		# 			elif elevlocation in Movelist[]:
-		# 			elevlocation = elevlocation
-		# 			elevator.printinfo()
-		# 			sleep(5)
-		# 		else:
-		# 			pass
-		# elif Movelist[] ==None:
-		# 	elevlocation = elevlocation
-		
+
+
+		dispMessage('ELEVATOR_01', 20)
+	 
+		dispMessage('ELEVATOR_02',160)
+		dispMessage('ELEVATOR_03',310)
+			#엘리베이터 업무표. + 타있는 passenger 정보.
+		# elev1_info(ev1.listToAdd)
+		# elev2_info(ev2.listToAdd)
+		# elev3_info(ev3.listToAdd)
+
+		pygame.draw.line(gamePad, BLACK, (150,390),(400,390),1)
+		dispMessage('Throughput(사용자 수 X 소요시간)/총 시간 = ', 400)
+			#기욱씨 임시 인스턴스의 경우 소욧시간변수(=tempEV1,tempEV2,tempEV3)
+			#영준형 임시 인스턴스의 경우 소욧시간변수(=)
+		# Throughput = passenger_count * arrivaltime_all / 설정time 
+		# dispMessage(Throughput, 410)
+
 		pygame.display.update()
 		clock.tick(60)
 	pygame.quit()
@@ -115,12 +140,8 @@ def initGame():
 	global clock, gamePad,elevator
 	pygame.init()
 	gamePad = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-	# elevator1 = pygame.draw.rect(gamePad, RED,(20,200,elevator_width,elevator_height))
-	# elevator2 = pygame.draw.rect(gamePad, RED,(50,200,elevator_width,elevator_height))
-	# elevator3 = pygame.draw.rect(gamePad, RED,(80,200,elevator_width,elevator_height))
-
 	pygame.display.set_caption(CAPTION)
-	floor_1 = elevlocation
+
 	
 	clock = pygame.time.Clock()
 	move()
