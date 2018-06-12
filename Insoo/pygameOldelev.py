@@ -12,19 +12,7 @@ CAPTION="Oldelevator"
 #층수 12층
 elevator_width = 30
 elevator_height = 10
-f1 = 1100
-f2 = 1000
-f3 = 900
-f4 = 800
-f5 = 700
-f6 = 600
-f7 = 500
-f8 = 400
-f9 = 300
-f10 = 200
-f11 = 100
-f12 = 0
-Floors=[f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12]
+
 
 def drawObject(obj,x,y):
 	global gamePad
@@ -44,20 +32,20 @@ def textObject(text,font):
 
 def elev1_info(text,passenger):
 	global gamePad
-	largeText = pygame.font.Font('ROCK.ttf',10)
+	largeText = pygame.font.Font('ROCK.ttf',8)
 	TextSurf, TextRect = textObject(text,largeText)
 	TextRect.center = (200,40)
-	gamePad.blit(TextSurf, TextRect)
-	# 현재 시간과 passanger[1]이 같아지면 탑승객 정보를 띄운다.
+		# 현재 시간과 passanger[1]이 같아지면 탑승객 정보를 띄운다.
 	# passenger = [0id, 1time, 2departure, 3arrival, 4weight,] 5arrivalTime]
 	if onlist[1] == time:
 		textObject(text,largeText)
 		TextRect.center = (200,50)
+	gamePad.blit(TextSurf, TextRect)
 	pygame.display.update()
 
 def elev2_info(text):
 	global gamePad
-	largeText = pygame.font.Font('ROCK.ttf',10)
+	largeText = pygame.font.Font('ROCK.ttf',8)
 	TextSurf, TextRect = textObject(text,largeText)
 	TextRect.center = (200,180)
 	gamePad.blit(TextSurf, TextRect)
@@ -65,7 +53,7 @@ def elev2_info(text):
 
 def elev3_info(text):
 	global gamePad
-	largeText = pygame.font.Font('ROCK.ttf',10)
+	largeText = pygame.font.Font('ROCK.ttf',8)
 	TextSurf, TextRect = textObject(text,largeText)
 	TextRect.center = (200,330)
 	gamePad.blit(TextSurf, TextRect)
