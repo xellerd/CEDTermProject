@@ -24,21 +24,21 @@ class Elevator:
     #엘리베이터가 목적지에 도착했을 떄
     def arrive(self, time):
         global passengerList
-        self.weight += dest[0][1]   # 무게 컨트롤
-        a = dest.pop(0)             # 목적지 목록에서 삭제
+        self.weight += self.dest[0][1]   # 무게 컨트롤
+        a = self.dest.pop(0)             # 목적지 목록에서 삭제
         if self.dir == UP:
-            destUp.pop(0)
+            self.destUp.pop(0)
         elif self.dir == DOWN:
-            destDown.pop(0)
+            self.destDown.pop(0)
 
         for i in range(len(passengerList)):
             if passengerList[i][0] == a[2]:
                 passengerList[i].append(time)   #도착시간을 passengerList에 추가, 탄 시간에서 빼면 소요시간 나옴
 
         #direction control
-        if dest == []:
+        if self.dest == []:
             self.dir == STOP
-        if self.dir == UP * (dest[0][0] - a[0]) < 0:
+        if self.dir == UP * (self.dest[0][0] - a[0]) < 0:
             self.dir *= -1
 
     # 총 소요 시간 계산용 함수인데 디버깅 필요
@@ -150,7 +150,7 @@ class Elevator:
                 if (time - self.T) == MOVINGTIME:
                     self.floor = self.floor + 1
                     self.T = time
-                    if floor == dest[0][0]:
+                    if self.floor == self.dest[0][0]:
                         self.arrive(time)
                         self.door = OPEN
             elif self.dir == DOWN:
@@ -193,13 +193,13 @@ def evCall(ev1, ev2, ev3, passengerListElement):
 
     if selectedEv == 1:
         ev1.addDest(on, off)
-        # print("1")
+        print("call ev1")
     elif selectedEv == 2:
         ev2.addDest(on, off)
-        # print("2")
+        print("call ev2")
     elif selectedEv == 3:
         ev3.addDest(on, off)
-        # print("3")
+        print("call ev3")
 
 # 일반적인 순차검색
 def Search(list, key):
