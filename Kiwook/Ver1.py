@@ -3,12 +3,14 @@ import copy
 UP = 1
 STOP = 0
 DOWN = -1
-MOVINGTIME = 5
-STOPTIME = 10
+MOVINGTIME = 2
+STOPTIME = 5
 MAXLOAD = 20
 MAXFLOOR = 12
 OPEN = 1
 CLOSE = 0
+
+TMAX = 50
 
 class Elevator:
     weight = 0
@@ -23,9 +25,11 @@ class Elevator:
 
     #엘리베이터가 목적지에 도착했을 떄
     def arrive(self, time):
+        print("arrived")
         global passengerList
         self.weight += self.dest[0][1]   # 무게 컨트롤
         a = self.dest.pop(0)             # 목적지 목록에서 삭제
+
         if self.dir == UP:
             self.destUp.pop(0)
         elif self.dir == DOWN:
@@ -37,9 +41,9 @@ class Elevator:
 
         #direction control
         if self.dest == []:
-            self.dir == STOP
-        if self.dir == UP * (self.dest[0][0] - a[0]) < 0:
-            self.dir *= -1
+            self.dir = STOP
+        elif self.dir == UP * (self.dest[0][0] - a[0]) < 0:
+            self.dir = self.dir * (-1)
 
     # 총 소요 시간 계산용 함수인데 디버깅 필요
     def totalTime(self, key):
@@ -196,10 +200,10 @@ def evCall(ev1, ev2, ev3, passengerListElement):
         print("call ev1")
     elif selectedEv == 2:
         ev2.addDest(on, off)
-        print("call ev2")
+        # print("call ev2")
     elif selectedEv == 3:
         ev3.addDest(on, off)
-        print("call ev3")
+        # print("call ev3")
 
 # 일반적인 순차검색
 def Search(list, key):
@@ -218,7 +222,7 @@ if __name__ == '__main__':
     ev3 = Elevator()
 
     # 임의의 패신저리스트
-    passengerList = [[0, 2, 4, 6, 7],[1, 4, 2, 5, 7],[2, 8, 2, 6, 1],[3, 11, 5, 3, 2],[4, 15, 7, 4, 1]]
+    passengerList = [[0, 2, 4, 6, 7]]
 
     # 가독성이 안좋긴 한데 일단 임시로 패신저랑 데스티네이션 엘리먼트 설명입니다. 패신저는 5개 요소로 작성하고 마지막에 append이용해서 arrivalTime 추가
     # passenger = [0id, 1time, 2departure, 3arrival, 4weight,] 5arrivalTime]
@@ -239,19 +243,18 @@ if __name__ == '__main__':
             evCall(ev1, ev2, ev3, passengerList[a])
 
         # move 한번씩 실행해주고 다른 메소드는 무브 안에서 호출
+
         ev1.move(t)
-        # print("ev1")
-        # print(ev1.dest)
-        # print(ev1.floor)
-        # print(ev1.T)
         ev2.move(t)
-        # print("ev2")
-        # print(ev2.dest)
         ev3.move(t)
-        # print("ev3")
-        # print(ev3.dest)
+
+        print(ev1.dest)
+        print("floor: %d" % ev1.floor)
+        print("ev1.T : %d" % ev1.T)
+        print("ev1.dir : %d" % ev1.dir)
+
         t = t + 1
         print()
 
-        if t == 20:
+        if t == TMAX:
             break
