@@ -46,3 +46,19 @@ def arrive():
 
 # passenger = [0id, 1time, 2departure, 3arrival, 4weight, 5arrivalTime]
 # dest = [0floor, 1weight, 2id, 3time]
+
+
+
+
+
+
+
+U   D   A
+0   0   0   STOP
+0   0   1   if up -> add = up, elif down -> add = down
+0   1   0   down
+0   1   1   down, u = a
+1   0   0   up
+1   0   1   up, d = a
+1   1   0   dir
+1   1   1   dir, a + d +

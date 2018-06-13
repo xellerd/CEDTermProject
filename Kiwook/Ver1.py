@@ -36,8 +36,10 @@ class Elevator:
             self.destDown.pop(0)
 
         for i in range(len(passengerList)):
+            print("passengerList[%d][0] : %d a[2] : %d" % (i, passengerList[i][0], a[2]))
             if passengerList[i][0] == a[2]:
                 passengerList[i].append(time)   #도착시간을 passengerList에 추가, 탄 시간에서 빼면 소요시간 나옴
+                print(passengerList)
 
         #direction control
         if self.dest == []:
@@ -51,6 +53,7 @@ class Elevator:
         #returns integer
         time = 0
         w = self.weight
+        # dest = [0floor, 1weight, 2id, 3time]
 
         for i in range(len(self.dest)-1):
             time = time - self.dest[i][0] + self.dest[i+1][0]
@@ -222,7 +225,7 @@ if __name__ == '__main__':
     ev3 = Elevator()
 
     # 임의의 패신저리스트
-    passengerList = [[0, 2, 4, 6, 7]]
+    passengerList = [[0, 2, 4, 6, 7], [1, 5, 7, 3, 3], [2, 18, 8, 9, 3]]
 
     # 가독성이 안좋긴 한데 일단 임시로 패신저랑 데스티네이션 엘리먼트 설명입니다. 패신저는 5개 요소로 작성하고 마지막에 append이용해서 arrivalTime 추가
     # passenger = [0id, 1time, 2departure, 3arrival, 4weight,] 5arrivalTime]
@@ -230,8 +233,7 @@ if __name__ == '__main__':
 
     t = 0
 
-    # 임시로 무한루프 돌림
-    while True:
+    while t <= TMAX:
         # 디버깅용
         print(t)
 
@@ -256,5 +258,5 @@ if __name__ == '__main__':
         t = t + 1
         print()
 
-        if t == TMAX:
-            break
+    print("passengerList : ")
+    print(passengerList)
