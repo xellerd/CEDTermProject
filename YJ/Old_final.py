@@ -25,7 +25,7 @@ class user:
 
 
 class elevator:
-	global elv1Passengerlist, elv2Passengerlist, elv3Passengerlist
+	global elv1Passengerlist, elv2Passengerlist, elv3Passengerlist, userlist, elevatorlist
 
 	def __init__(self):
 		#엘리베이터 방향 , 현재 위치랑 현재 목적층 가지고 설정해야함
@@ -39,28 +39,28 @@ class elevator:
 		count2 = 0
 		count3 = 0
 
-		if wantDirect == elevator1.elevaDirect:
+		if wantDirect == elevatorlist[0].elevaDirect:
 			for i in elv1Passengerlist:
-				if ((i > start) & (i < elevator1.presentFloor)) or ((i < start) & (i > elevator1.presentFloor)):
+				if ((i > start) & (i < elevatorlist[0].presentFloor)) or ((i < start) & (i > elevatorlist[0].presentFloor)):
 				count1 += 1 
 
-			total1 = count1*STOPTIME + (abs(elevator1.presentFloor - start)-count1)*MOVINGTIME
+			total1 = count1*STOPTIME + (abs(elevatorlist[0].presentFloor - start)-count1)*MOVINGTIME
 
 
-		if wantDirect == elevator2.elevaDirect:
+		if wantDirect == elevatorlist[1].elevaDirect:
 			for i in elv2Passengerlist:
-				if ((i > start) & (i < elevator2.presentFloor)) or ((i < start) & (i > elevator2.presentFloor)):
+				if ((i > start) & (i < elevatorlist[1].presentFloor)) or ((i < start) & (i > elevatorlist[1].presentFloor)):
 				count2 += 1 
 
-			total2 = count2*STOPTIME + (abs(elevator2.presentFloor - start)-count2)*MOVINGTIME
+			total2 = count2*STOPTIME + (abs(elevatorlist[1].presentFloor - start)-count2)*MOVINGTIME
 
 
-		if wantDirect == elevator3.elevaDirect:
+		if wantDirect == elevatorlist[2].elevaDirect:
 			for i in elv3Passengerlist:
-				if ((i > start) & (i < elevator3.presentFloor)) or ((i < start) & (i > elevator3.presentFloor)):
+				if ((i > start) & (i < elevatorlist[2].presentFloor)) or ((i < start) & (i > elevatorlist[2].presentFloor)):
 				count3 += 1 
 
-			total3 = count3*STOPTIME + (abs(elevator3.presentFloor - start)-count3)*MOVINGTIME
+			total3 = count3*STOPTIME + (abs(elevatorlist[2].presentFloor - start)-count3)*MOVINGTIME
 
 		if min([total1, total2, total3]) == total1:
 			elv1Passengerlist.append(destination)
@@ -77,13 +77,18 @@ class system:
 		pass
 
 #user객체 10명 생성
+userlist = list()
 for i in range(1, 10):
-	user"%d" = user() %i
+	user = user()
+	userlist.append(user)
 
 
 #elevator객체 3개 생성
+elevatorlist = list()
 for i in range(1, 3):
-	elevator"%d" = elevator() %i 
+	elevator = elevator()
+	elevatorlist.append(elevator) 
+
 
 #각 엘리베이터에 임의의 초기 목적층을 설정해줌
 elv1Passengerlist = list()
@@ -92,6 +97,7 @@ elv2Passengerlist = list()
 elv2Passengerlist.append(random.randint(1, 12))
 elv3Passengerlist = list()
 elv3Passengerlist.append(random.randint(1, 12))
+
 
 #timelist를 유저수만큼 랜덤하게 생성 
 timelist = list()
@@ -103,4 +109,4 @@ for i in range(10):
 timelist.sort()
 
 
-user1.call(user1.wantDirect, user1.start, user1.destination)
+userlist[0].call(userlist[0].wantDirect, userlist[0].start, userlist[0].destination)
