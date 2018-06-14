@@ -5,6 +5,9 @@ STOPTIME = 5
 MAXLOAD = 20
 MAXFLOOR = 12
 TMAX = 30
+UP = 1
+STOP = 0
+DOWN = -1
 
 #각 층별 호출발생 확률값
 upProblist = [0.8, 0.75, 0.3, 0.4, 0.6, 0.45, 0.5, 0.2, 0.2, 0.1, 0.05, 0] 
@@ -13,6 +16,7 @@ downProblist = upProblist.reverse()
 
 class user:
 	time = 0
+	arrivalTime = 0
 	def __init__(self):
 		self.time = time
 		self.userNum = random.randint(1, 3) #탑승인원
@@ -25,11 +29,119 @@ class user:
 			self.wantDirect = -1
 		
 
+
+
+
+
 class elevator:
+	global elv1Passengerlist, elv2Passengerlist, elv3Passengerlist
+	time = 0
+
 	def __init__(self):
 		self.elevaDirect = random.randint(-1, 1) #-1는 아래로, 0은 정지, 1은 위로 움직이고 있는 상태
 		self.passenger = random.randint(1, 3) #현재 탑승하고 있는 인원수
 		self.presentFloor = random.randint(1, 12) #현재 위치 
+
+
+	def callmove(self, time, elevatorObj, userObj):
+		if elevatorObj == elevator1:
+			elv1Passengerlist.append(userObj.start)
+			if (elevatorObj.elevaDirect == 1) or (elevatorObj.elevaDirect == 0):
+				elv1Passengerlist.sort()
+
+			elif elevatorObj.elevaDirect == -1:
+				elv1Passengerlist.sort()
+				elv1Passengerlist.reverse()
+
+			if self.presentFloor == elv1Passengerlist[0]
+				time += STOPTIME
+				elv1Passengerlist.pop(0)
+
+			else:
+       			if (time - self.time) == MOVINGTIME:
+           			self.presentFloor = self.presentFloor + self.elevaDirect
+            		self.time = time
+        		else:
+        			pass
+
+		elif elevatorObj == elevator2:
+			elv2Passengerlist.append(userObj.start)
+			if (elevatorObj.elevaDirect == 1) or (elevatorObj.elevaDirect == 0):
+				elv2Passengerlist.sort()
+
+			elif elevatorObj.elevaDirect == -1:
+				elv2Passengerlist.sort()
+				elv2Passengerlist.reverse()
+
+			if self.presentFloor == elv2Passengerlist[0]
+				time += STOPTIME
+				elv2Passengerlist.pop(0)
+
+			else:
+       			if (time - self.time) == MOVINGTIME:
+           			self.presentFloor = self.presentFloor + self.elevaDirect
+            		self.time = time
+        		else:
+        			pass
+
+		elif elevatorObj == elevator3:
+			elv3Passengerlist.append(userObj.start)
+			if (elevatorObj.elevaDirect == 1) or (elevatorObj.elevaDirect == 0):
+				elv3Passengerlist.sort()
+
+			elif elevatorObj.elevaDirect == -1:
+				elv3Passengerlist.sort()
+				elv3Passengerlist.reverse()
+
+			if self.presentFloor == elv3Passengerlist[0]
+				time += STOPTIME
+				elv3Passengerlist.pop(0)
+
+			else:
+       			if (time - self.time) == MOVINGTIME:
+           			self.presentFloor = self.presentFloor + self.elevaDirect
+            		self.time = time
+        		else:
+        			pass
+
+
+	def move1(self, time):
+		if self.presentFloor == elv1Passengerlist[0]
+			time += STOPTIME
+			elv1Passengerlist.pop(0)
+
+		else:
+       		if (time - self.time) == MOVINGTIME:
+           		self.presentFloor = self.presentFloor + self.elevaDirect
+            	self.time = time
+        	else:
+        		pass
+
+
+    def move2(self, time):
+    	if self.presentFloor == elv2Passengerlist[0]
+			time += STOPTIME
+			elv2Passengerlist.pop(0)
+
+		else:
+       		if (time - self.time) == MOVINGTIME:
+           		self.presentFloor = self.presentFloor + self.elevaDirect
+            	self.time = time
+        	else:
+        		pass
+
+
+    def move3(self, time):
+    	if self.presentFloor == elv3Passengerlist[0]
+			time += STOPTIME
+			elv3Passengerlist.pop(0)
+
+		else:
+       		if (time - self.time) == MOVINGTIME:
+           		self.presentFloor = self.presentFloor + self.elevaDirect
+            	self.time = time
+        	else:
+        		pass
 		
 
 	
@@ -143,8 +255,25 @@ while t <= TMAX:
 		#호출로 인해 배차된 특정 엘리베이터 확인
 		elevatorObj = call(userObj, elevator1, elevator2, elevator3)
 
-		
-	#현 엘리베이터 상태 업데이트
+		#엘리베이터 상태 업데이트
+		if elevatorObj == elevator1:
+			elevator1.callmove(t, elevator1, userObj)
+			elevator2.move2(t)
+			elevator3.move3(t)
+		elif elevatorObj == elevator2:
+			elevator1.move1(t)
+			elevator2.callmove(t, elevator2, userObj)
+			elevator3.move3(t)
+		elif elevatorObj == elevator3:
+			elevator1.move1(t)
+			elevator2.move2(t)
+			elevator3.callmove(t, elevator3, userObj)
+
+
+
+
+
+	#호출되지 않았을 때의 엘리베이터 상태 업데이트
 
 
 	t = t + 1
