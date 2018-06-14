@@ -13,6 +13,10 @@ CAPTION="Oldelevator"
 elevator_width = 30
 elevator_height = 10
 
+#
+TARGET_FPS = 30
+clock = pygame.time.Clock()
+
 
 def drawObject(obj,x,y):
 	global gamePad
@@ -30,49 +34,23 @@ def textObject(text,font):
 	textSurface = font.render(text,True,BLACK)
 	return textSurface, textSurface.get_rect()
 
-def elev1_info(text,passenger):
+def elev_info(text,passenger,replace):
 	global gamePad
 	largeText = pygame.font.Font('ROCK.ttf',8)
 	TextSurf, TextRect = textObject(text,largeText)
 	TextRect.center = (150,40)
 		# 현재 시간과 passanger[1]이 같아지면 탑승객 정보를 띄운다.
 	# passenger = [0id, 1time, 2departure, 3arrival, 4weight,] 5arrivalTime]
-	if onlist[1] == time:
+	# 0614_ id대신에  탑승시간으로 적용.
+	if onlist[1] == clock:
 		textObject(text,largeText)
-		TextRect.center = (160,50)
+		TextRect.center = (160,replace)
 	gamePad.blit(TextSurf, TextRect)
 	pygame.display.update()
 
-def elev2_info(text):
-	global gamePad
-	largeText = pygame.font.Font('ROCK.ttf',8)
-	TextSurf, TextRect = textObject(text,largeText)
-	TextRect.center = (150,180)
-	gamePad.blit(TextSurf, TextRect)
-	pygame.display.update()
 
-def elev3_info(text):
-	global gamePad
-	largeText = pygame.font.Font('ROCK.ttf',8)
-	TextSurf, TextRect = textObject(text,largeText)
-	TextRect.center = (150,330)
-	gamePad.blit(TextSurf, TextRect)
-	pygame.display.update()
 def invertfloor(floor):
-	y = [o1_y,o2_y,o3_y,n1_y,n2_y,n3_y]
-	if floor == 1 :
-		y = 400
-	elif floor == 2 :
-		y = 370
-	elif floor == 3 :
-	elif floor == 4 :
-	elif floor == 5 :
-	elif floor == 6 :
-	elif floor == 7 :
-	elif floor == 8 :
-	elif floor == 9 :
-	elif floor == 10 :
-	elif floor == 11 :
+	floor = 400/floor 
 
 def move(): # rungame()
 	global clock, gamePad, elevator1,elevator2,elevator3
@@ -97,7 +75,7 @@ def move(): # rungame()
 				pygame.quit()
 				sys.exit()
 		#elev 알고리즘 방향키 위 누르면 t실행해보는걸로 하자
-		# if pressed[pygame.K_UP]:
+		#  if event.type == KEYUP:
 			#다다다다다다다닥
 		#Ver1 보면 아마 에리베이터 위치도 초기화 되어 있을 것이당.
 		# b1_y = ev1.Invertfloor(floor)
@@ -131,10 +109,10 @@ def move(): # rungame()
 		dispMessage('ELEVATOR_01', 20)
 		dispMessage('ELEVATOR_02',150)
 		dispMessage('ELEVATOR_03',290)
-			#엘리베이터 업무표.destlist[] + 타있는 passenger 정보.
-		# elev1_info(ev1.listToAdd)
-		# elev2_info(ev2.listToAdd)
-		# elev3_info(ev3.listToAdd)
+		#엘리베이터 업무표.destlist[] + 타있는 passenger 정보.
+		# elev_info(ev1.listToAdd, 글자 출력 y 축)
+		# elev_info(ev2.listToAdd, 글자 출력 y 축)
+		# elev_info(ev3.listToAdd, 글자 출력 y 축)
 
 		pygame.draw.line(gamePad, BLACK, (150,390),(300,390),1)
 		dispMessage('Throughput = ', 400)
@@ -144,7 +122,8 @@ def move(): # rungame()
 		# dispMessage(Throughput, 410)
 
 		pygame.display.update()
-		clock.tick(60)
+		# 메인 루프 안에서 FPS(초당 프레임수)를 맞추기 위한 딜레이를 추가해주는 코드. 파라미터로 딜레이 시간이 아닌 목표로 하는 FPS 값이 들어간다.
+		clock.tick(TARGET_FPS)
 	pygame.quit()
 	quit()
 
