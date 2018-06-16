@@ -114,13 +114,7 @@ def rungame(): # rungame()
 		#elev 알고리즘 방향키 위 누르면 t실행해보는걸로 하자
 		#  if event.type == KEYUP:
 			#다다다다다다다닥
-		#Ver1 보면 아마 에리베이터 위치도 초기화 되어 있을 것이당.
-		# b1_y = ev1.Invertfloor(floor)
-		# b2_y = ev2.Invertfloor(floor)
-		# b3_y = ev3.Invertfloor(floor)
-
-
-		
+			
 		passengerSearch = oodEv_final.passengerSearch(passenger_list,clock)
 		passengerIndex = oodEv_final.passengerSearch(passenger_list,clock)
 		passenger = passenger_list[passengerIndex]
