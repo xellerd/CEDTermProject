@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 import random
 
 MOVINGTIME = 3
@@ -10,12 +12,12 @@ STOP = 0
 DOWN = -1
 
 #각 층별 호출발생 확률값
-upProblist = [0.8, 0.75, 0.3, 0.4, 0.6, 0.45, 0.5, 0.2, 0.2, 0.1, 0.05, 0] 
+upProblist = [0.8, 0.75, 0.3, 0.4, 0.6, 0.45, 0.5, 0.2, 0.2, 0.1, 0.05, 0]
 downProblist = upProblist.reverse()
 
 
 class user:
-	
+
 	arrivalTime = 0
 	def __init__(self):
 		self.time = 0
@@ -27,7 +29,7 @@ class user:
 			self.wantDirect = 1
 		elif self.destination - self.start < 0:
 			self.wantDirect = -1
-		
+
 
 
 
@@ -39,7 +41,7 @@ class elevator:
 	def __init__(self):
 		self.elevaDirect = random.randint(-1, 1) #-1는 아래로, 0은 정지, 1은 위로 움직이고 있는 상태
 		self.passenger = random.randint(1, 3) #현재 탑승하고 있는 인원수
-		self.presentFloor = random.randint(1, 12) #현재 위치 
+		self.presentFloor = random.randint(1, 12) #현재 위치
 		self.time = 0
 
 
@@ -140,7 +142,7 @@ class elevator:
 					elevator.elevaDirect = 1
 				elif elv1Passengerlist[0] < elevator.presentFloor:
 					elevator.elevaDirect = -1
-			
+
 
 		else:
 			if (time - elevator.time) == MOVINGTIME:
@@ -163,7 +165,7 @@ class elevator:
 					elevator.elevaDirect = 1
 				elif elv2Passengerlist[0] < elevator.presentFloor:
 					elevator.elevaDirect = -1
-			
+
 
 		else:
 			if (time - elevator.time) == MOVINGTIME:
@@ -186,7 +188,7 @@ class elevator:
 					elevator.elevaDirect = 1
 				elif elv3Passengerlist[0] < elevator.presentFloor:
 					elevator.elevaDirect = -1
-			
+
 
 		else:
 			if (time - elevator.time) == MOVINGTIME:
@@ -196,7 +198,7 @@ class elevator:
 				elevator.time = time
 			else:
 				pass
-		
+
 
 
 
@@ -214,7 +216,7 @@ def call(userObj, elevator1, elevator2, elevator3):
 	if userObj.wantDirect == elevator1.elevaDirect:
 		for i in elv1Passengerlist:
 			if ((i > userObj.start) & (i < elevator1.presentFloor)) or ((i < userObj.start) & (i > elevator1.presentFloor)):
-				count1 += 1 
+				count1 += 1
 
 		total1 = count1*STOPTIME + (abs(elevator1.presentFloor - userObj.start)-count1)*MOVINGTIME
 
@@ -222,7 +224,7 @@ def call(userObj, elevator1, elevator2, elevator3):
 	elif userObj.wantDirect == elevator2.elevaDirect:
 		for i in elv2Passengerlist:
 			if ((i > userObj.start) & (i < elevator2.presentFloor)) or ((i < userObj.start) & (i > elevator2.presentFloor)):
-				count2 += 1 
+				count2 += 1
 
 		total2 = count2*STOPTIME + (abs(elevator2.presentFloor - userObj.start)-count2)*MOVINGTIME
 
@@ -230,7 +232,7 @@ def call(userObj, elevator1, elevator2, elevator3):
 	elif userObj.wantDirect == elevator3.elevaDirect:
 		for i in elv3Passengerlist:
 			if ((i > userObj.start) & (i < elevator3.presentFloor)) or ((i < userObj.start) & (i > elevator3.presentFloor)):
-				count3 += 1 
+				count3 += 1
 
 		total3 = count3*STOPTIME + (abs(elevator3.presentFloor - userObj.start)-count3)*MOVINGTIME
 
@@ -268,7 +270,7 @@ for i in range(1, 11):
 	u = user()
 	userlist.append(u)
 
-#timelist를 유저수만큼 랜덤하게 생성 
+#timelist를 유저수만큼 랜덤하게 생성
 timelist = [1]
 time_num = random.randint(1, 30)
 for i in range(9):
@@ -302,7 +304,7 @@ while t <= TMAX:
 
 	#현 시간에 해당하는 특정유저 확인_1
 	userIndex = userSearch(userlist, t)
-        
+
 
 	#호출됐을 때의 내용 들어갈 부분
 	if userIndex != -1:
@@ -334,5 +336,3 @@ while t <= TMAX:
 
 
 	t = t + 1
-
-

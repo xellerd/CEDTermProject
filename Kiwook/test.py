@@ -10,5 +10,10 @@ class P:
 
 if __name__ == '__main__':
     p1 = P(1, 2, 3)
-    list = [P(2, 3, 4)]
-    print(list[0].element1, list[0].element2)
+
+    a = p1.element1
+
+    a = a + 1
+
+    print("a: %d" % a)
+    print("p1.element1 : %d" % p1.element1)
