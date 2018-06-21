@@ -331,6 +331,10 @@ while t <= TMAX:
 		elevator2.move2(t, elevator2)
 		elevator3.move3(t, elevator3)
 
+	print(elevator1.presentFloor)
+	print(elevator1.passenger)
+	print(elevator2.presentFloor)
+	print(elevator3.presentFloor)
 
 
 	t = t + 1

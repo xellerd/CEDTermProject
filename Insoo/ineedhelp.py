@@ -2,7 +2,6 @@ import pygame
 import sys
 from pygame.locals import*
 from time import sleep
-
 import oodEv_final
 
 WINDOW_WIDTH = 450
@@ -23,8 +22,6 @@ clock = pygame.time.Clock()
 
 #
 
-Passenger_new = oodEv_final.Passenger(clock,0,0,0)
-
 
 #
 
@@ -41,6 +38,7 @@ def drawObject(obj,x,y):
 	global gamePad
 	gamePad.blit(obj,(x,y))
 
+
 def dispMessage(text,y):
 	global gamePad
 	largeText = pygame.font.Font('Rock.ttf',8)
@@ -49,9 +47,11 @@ def dispMessage(text,y):
 	gamePad.blit(TextSurf, TextRect)
 	pygame.display.update()
 
+
 def textObject(text,font):
 	textSurface = font.render(text,True,BLACK)
 	return textSurface, textSurface.get_rect()
+
 
 def elev_info(text,passenger,replace):
 	global gamePad
@@ -73,29 +73,9 @@ def elev_info(text,passenger,replace):
 def invertfloor(floor):
 	# floor y좌표로 바꿔주기
 	# floor_end=[400,370,340,310,280,250,220,190,160,130,100,70]
-	if floor == 1:
-		floor = 400
-	elif floor == 2:
-		floor =370
-	elif floor == 3:
-		floor =340
-	elif floor == 4:
-		floor = 310
-	elif floor ==5:
-		floor = 280
-	elif floor == 6:
-		floor = 250
-	elif floor == 7:
-		floor = 220
-	elif floor == 8:
-		floor = 190
-	elif floor == 9:
-		floor = 160
-	elif floor ==  10:
-		floor = 130
-	elif floor == 11 :
-		floor = 100
+	floor = 400-30*(floor-1)
 	return floor
+
 
 def rungame(): # rungame()
 	global clock, gamePad, elevator1,elevator2,elevator3,passenger_list
@@ -104,7 +84,7 @@ def rungame(): # rungame()
 	gamePad.fill(WHITE)
 	clockcount =0
 	#passanger_list(time, weight, departure, arrival)
-	passenger_list = [oodEv_final.Passenger(1, 2, 3, 6), oodEv_final.Passenger(12, 3, 7, 8)]
+	passenger_list = [oodEv_final.Passenger(1, 2, 3, 6), oodEv_final.Passenger(12, 3, 7, 8),oodEv_final.Passenger(11,15,1,5),oodEv_final.Passenger(2,10,3,7),oodEv_final.Passenger(5,10,10,5)]
 	
 	o1_y=400
 	o2_y=400
@@ -127,7 +107,6 @@ def rungame(): # rungame()
 		#  if event.type == KEYUP:
 			#다다다다다다다닥
 			
-
 		passengerIndex = oodEv_final.passengerSearch(passenger_list,clock)
 		passenger = passenger_list[passengerIndex]
 		
@@ -147,7 +126,7 @@ def rungame(): # rungame()
 		n3_y = invertfloor(ins_n3.floor)
 		# n1_y = invertfloor(ins_n1.floor)
 		#passanger_list(time, weight, departure, arrival)
-		passanger_list= [oodEv_final.Passenger(random.randint(1,12))
+		
 
 
 		o1 = {'rect':pygame.Rect(10,o1_y,elevator_height,elevator_width)}
@@ -156,6 +135,8 @@ def rungame(): # rungame()
 		Oldboxes =[o1,o2,o3]
 		for b1 in Oldboxes:
 			pygame.draw.rect(gamePad, RED, b1['rect'])
+
+
 
 		n1 = {'rect':pygame.Rect(380,n1_y,elevator_height,elevator_width)}
 		n2 = {'rect':pygame.Rect(410,n2_y,elevator_height,elevator_width)}
@@ -196,14 +177,12 @@ def rungame(): # rungame()
 	pygame.quit()
 	quit()
 
+
 def initGame():
 	global clock, gamePad,elevator
 	pygame.init()
 	gamePad = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 	pygame.display.set_caption(CAPTION)
-
-	
-
 	rungame()
 
 
