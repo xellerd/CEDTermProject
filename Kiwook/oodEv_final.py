@@ -54,14 +54,16 @@ class Elevator:
                 self.time = time
             else:
                 if (time - self.time) == MOVINGTIME:
+                    if self.floor == self.dest[0].floor:
+                        self.arrive(time)
+                        self.door = OPEN
+
                     if self.dir == UP:
                         self.floor = self.floor + 1
                     elif self.dir == DOWN:
                         self.floor = self.floor - 1
                     self.time = time
-                    if self.floor == self.dest[0].floor:
-                        self.arrive(time)
-                        self.door = OPEN
+
         elif self.door == OPEN:
             if (time - self.time) == STOPTIME:
                 self.time = time
@@ -92,11 +94,11 @@ class Elevator:
                 self.dir = UP
         else:
             if self.destUp != [] and self.destDown == []:
-                self.dir = DOWN
+                self.dir = UP
                 self.destUp = self.destAdd
                 self.destAdd = []
-            elif self.destUp == [] and self.destUp != []:
-                self.dir == UP
+            elif self.destUp == [] and self.destDown != []:
+                self.dir == DOWN
                 self.destDown = self.destAdd
                 self.destAdd = []
 
@@ -110,7 +112,7 @@ class Elevator:
         if self.dir == UP:
             self.dest = self.destUp + self.destDown + self.destAdd
         elif self.dir == DOWN:
-            self.dest = self.destUp + self.destDown + self.destAdd
+            self.dest = self.destDown + self.destUp + self.destAdd
 
 
     def addDest(self, departure, arrival):
@@ -217,7 +219,7 @@ class Elevator:
 
 
 def evCall(ev1, ev2, ev3, passenger):
-    print("evcall!")
+    # print("evcall!")
     #Destination(floor, weight, time)
     #Passenger: time, weight, departure, arrival
     departure = Destination(passenger.departure, passenger.weight, passenger.time)
@@ -240,13 +242,13 @@ def evCall(ev1, ev2, ev3, passenger):
     selectedEv = timeList.index(min(timeList)) + 1
 
     if selectedEv == 1:
-        print("ev1 add")
+        # print("ev1 add")
         ev1.addDest(departure, arrival)
     elif selectedEv == 2:
-        print("ev2 add")
+        # print("ev2 add")
         ev2.addDest(departure, arrival)
     elif selectedEv == 3:
-        print("ev3 add")
+        # print("ev3 add")
         ev3.addDest(departure, arrival)
 
 def passengerSearch(passengerList, time):
@@ -261,7 +263,12 @@ def passengerSearch(passengerList, time):
 if __name__ == '__main__':
     global passengerList
     #passenger(time, weight, departure, arrival)
-    passengerList = [Passenger(1, 2, 3, 6), Passenger(12, 3, 7, 8)]
+    passengerList = [Passenger(1, 15, 1, 5), Passenger(2, 10, 3, 7)]
+
+    f1 = open("./RealTime.dat", 'w')
+    data = "time\tEv1.floor\tEv1.dir\t\tEv1.passenger\tEv2.floor\tEv2.dir\t\tEv2.passenger\tEv3.floor\tEv3.dir\t\tEv3.passenger\n"
+    f1.write(data)
+
 
     ev1 = Elevator()
     ev2 = Elevator()
@@ -270,7 +277,10 @@ if __name__ == '__main__':
     t = 0
 
     while t <= TMAX:
-        print("t : %d" % t)
+
+
+        data = "%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n" % (t, ev1.floor, ev1.dir, ev1.passenger, ev2.floor, ev2.dir, ev2.passenger, ev3.floor, ev3.dir, ev3.passenger)
+        f1.write(data)
 
         passengerIndex = passengerSearch(passengerList, t)
         passenger = passengerList[passengerIndex]
@@ -282,30 +292,41 @@ if __name__ == '__main__':
         ev2.move(t)
         ev3.move(t)
 
-        print("ev1.floor : %d" % ev1.floor)
-        print("ev1.passenger : %d" % ev1.passenger)
-        print("ev1.dest")
-        for i in range(len(ev1.dest)):
-            print([ev1.dest[i].floor, ev1.dest[i].weight])
-
-        print(" ")
-
-        print("ev2.floor : %d" % ev2.floor)
-        print("ev2.passenger : %d" % ev2.passenger)
-        print("ev2.dest")
-        for i in range(len(ev2.dest)):
-            print([ev2.dest[i].floor, ev2.dest[i].weight])
-
-        print(" ")
-
-        print("ev3.floor : %d" % ev3.floor)
-        print("ev3.passenger : %d" % ev3.passenger)
-        print("ev3.dest")
-        for i in range(len(ev3.dest)):
-            print([ev3.dest[i].floor, ev3.dest[i].weight])
-
-        print(" ")
+        # print("ev1.floor : %d" % ev1.floor)
+        # print("ev1.passenger : %d" % ev1.passenger)
+        # print("ev1.dest")
+        # for i in range(len(ev1.dest)):
+        #     print([ev1.dest[i].floor, ev1.dest[i].weight])
+        # print("ev1.dir : %d" % ev1.dir)
+        #
+        # print(" ")
+        #
+        # print("ev2.floor : %d" % ev2.floor)
+        # print("ev2.passenger : %d" % ev2.passenger)
+        # print("ev2.dest")
+        # for i in range(len(ev2.dest)):
+        #     print([ev2.dest[i].floor, ev2.dest[i].weight])
+        #
+        # print(" ")
+        #
+        # print("ev3.floor : %d" % ev3.floor)
+        # print("ev3.passenger : %d" % ev3.passenger)
+        # print("ev3.dest")
+        # for i in range(len(ev3.dest)):
+        #     print([ev3.dest[i].floor, ev3.dest[i].weight])
+        #
+        # print(" ")
 
 
         t = t + 1
-        print(" ")
+        # print(" ")
+
+    f2 = open("./passengerList.dat", 'w')
+    data = "time\tarrivalTime\tweight\t\tdeparture\tarrival\n"
+    f2.write(data)
+    for i in range(len(passengerList)):
+        data = "%d\t%d\t\t%d\t\t%d\t\t%d\n" % (passengerList[i].time, passengerList[i].arrivalTime, passengerList[i].weight, passengerList[i].departure, passengerList[i].arrival)
+        f2.write(data)
+
+    f1.close()
+    f2.close()
