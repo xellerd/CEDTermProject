@@ -92,11 +92,11 @@ class Elevator:
                 self.dir = UP
         else:
             if self.destUp != [] and self.destDown == []:
-                self.dir = DOWN
+                self.dir = UP
                 self.destUp = self.destAdd
                 self.destAdd = []
-            elif self.destUp == [] and self.destUp != []:
-                self.dir == UP
+            elif self.destUp == [] and self.destDown != []:
+                self.dir == DOWN
                 self.destDown = self.destAdd
                 self.destAdd = []
 
@@ -110,7 +110,7 @@ class Elevator:
         if self.dir == UP:
             self.dest = self.destUp + self.destDown + self.destAdd
         elif self.dir == DOWN:
-            self.dest = self.destUp + self.destDown + self.destAdd
+            self.dest = self.destDown + self.destUp + self.destAdd
 
 
     def addDest(self, departure, arrival):
@@ -261,7 +261,7 @@ def passengerSearch(passengerList, time):
 if __name__ == '__main__':
     global passengerList
     #passenger(time, weight, departure, arrival)
-    passengerList = [Passenger(1, 2, 3, 6), Passenger(12, 3, 7, 8)]
+    passengerList = [Passenger(1, 15, 1, 5), Passenger(2, 10, 3, 7)]
 
     ev1 = Elevator()
     ev2 = Elevator()
