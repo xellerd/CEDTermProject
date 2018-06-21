@@ -54,14 +54,16 @@ class Elevator:
                 self.time = time
             else:
                 if (time - self.time) == MOVINGTIME:
+                    if self.floor == self.dest[0].floor:
+                        self.arrive(time)
+                        self.door = OPEN
+
                     if self.dir == UP:
                         self.floor = self.floor + 1
                     elif self.dir == DOWN:
                         self.floor = self.floor - 1
                     self.time = time
-                    if self.floor == self.dest[0].floor:
-                        self.arrive(time)
-                        self.door = OPEN
+
         elif self.door == OPEN:
             if (time - self.time) == STOPTIME:
                 self.time = time
@@ -287,6 +289,7 @@ if __name__ == '__main__':
         print("ev1.dest")
         for i in range(len(ev1.dest)):
             print([ev1.dest[i].floor, ev1.dest[i].weight])
+        print("ev1.dir : %d" % ev1.dir)
 
         print(" ")
 
