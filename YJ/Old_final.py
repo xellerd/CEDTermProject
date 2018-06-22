@@ -1,5 +1,3 @@
-# -*- coding:utf-8 -*-
-
 import random
 
 MOVINGTIME = 3
@@ -13,24 +11,14 @@ DOWN = -1
 
 
 
-
-#각 층별 호출발생 확률값
-upProblist = [0.8, 0.75, 0.3, 0.4, 0.6, 0.45, 0.5, 0.2, 0.2, 0.1, 0.05, 0]
-downProblist = upProblist.reverse()
-
-
 class user:
 
-	arrivalTime = 0
 	def __init__(self):
 		self.time = 0
 		self.userNum = random.randint(1, 3) #탑승인원
 		self.start = random.randint(1, 12) #시작층
 		self.destination = random.randint(1, 12) #목적층
-		#호출 방향
-<<<<<<< HEAD
-		#self.wantDirect = (self.destination - self.start)/abs(self.destination - self.start)
-		self.wantDirect = direct(self.destination, self.start)
+		self.wantDirect = direct(self.destination, self.start) #호출 방향
 		
 	
 def direct(destination, start):
@@ -40,15 +28,6 @@ def direct(destination, start):
 	elif destination - start < 0:
 		wantDirect = -1
 	return wantDirect
-=======
-		if self.destination - self.start > 0:
-			self.wantDirect = 1
-		elif self.destination - self.start < 0:
-			self.wantDirect = -1
-
-
->>>>>>> 3d7d9250f434b987cdd043a4b6a8ecac231c073f
-
 
 
 
@@ -238,8 +217,6 @@ class elevator:
 
 
 
-
-
 def call(userObj, elevator1, elevator2, elevator3):
 	global total1, total2, total3
 	count1 = 0
@@ -281,7 +258,6 @@ def call(userObj, elevator1, elevator2, elevator3):
 
 	elif min([total1, total2, total3]) == total3:
 		return elevator3
-
 
 
 
@@ -382,11 +358,9 @@ while t <= TMAX:
 	print("3호기 현재층 : " + str(elevator3.presentFloor))
 
 	t = t + 1
-<<<<<<< HEAD
+
 
 print("1호기가 옮긴 승객수 : " + str(elevator1.objCount1))
 print("2호기가 옮긴 승객수 : " + str(elevator2.objCount2))
 print("3호기가 옮긴 승객수 : " + str(elevator3.objCount3))
 print("수송효율 = " + str(((elevator1.objCount1+elevator2.objCount2+elevator3.objCount3)/TMAX)))
-=======
->>>>>>> 3d7d9250f434b987cdd043a4b6a8ecac231c073f

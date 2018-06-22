@@ -2,7 +2,7 @@ import pygame
 import sys
 from time import sleep
 from pygame.locals import*
-import oodEv_final
+import Old_final
 
 WINDOW_WIDTH = 450
 WINDOW_HEIGHT = 430
@@ -29,7 +29,7 @@ def textObject(text,font):
 
 def dispMessage(text,y):
 	global gamePad
-	largeText = pygame.font.Font('Rock.ttf',10)
+	largeText = pygame.font.Font('freesansbold.ttf',10)
 	TextSurf, TextRect = textObject(text,largeText)
 	TextRect.center = (225,y)
 	gamePad.blit(TextSurf, TextRect)
@@ -38,7 +38,7 @@ def dispMessage(text,y):
 def drawClock(count):
 	global gamePad, clockcount
 	
-	font = pygame.font.Font('Rock.ttf', 10)
+	font = pygame.font.Font('freesansbold.ttf', 10)
 	text = font.render('Clock:'+str(count),True,BLACK)
 	gamePad.blit(text,(0,0))
 
@@ -53,9 +53,9 @@ def rungame():
 	clock_count=0
 	gamePad.fill(WHITE)
 	
-	ins_n1 = oodEv_final.Elevator()
-	ins_n2 = oodEv_final.Elevator()
-	ins_n3 = oodEv_final.Elevator()
+	ins_n1 = Old_final.elevator1
+	ins_n2 = Old_final.elevator2
+	ins_n3 = Old_final.elevator3
 	
 
 	dispMessage('o1 ,n1',20)
@@ -83,17 +83,17 @@ def rungame():
 				pygame.quit()
 				sys.exit()
 
-		passengerList = [oodEv_final.Passenger(1, 2, 3, 6), oodEv_final.Passenger(2,5,7,2)]	
-		passengerIndex = oodEv_final.passengerSearch(passengerList, t)
-		passenger = passengerList[passengerIndex]
+		#passengerList = [oodEv_final.Passenger(1, 2, 3, 6), oodEv_final.Passenger(2,5,7,2)]	
+		#passengerIndex = oodEv_final.passengerSearch(passengerList, t)
+		#passenger = passengerList[passengerIndex]
 
-		if passengerIndex != -1:
-			oodEv_final.evCall(ins_n1,ins_n2,ins_n3,passenger)
+		#if userIndex != -1:
+		#	Old_final.evCall(ins_n1,ins_n2,ins_n3,passenger)
 
 
-		ins_n1.move(int(round(pygame.time.get_ticks()/1000)))
-		ins_n2.move(int(round(pygame.time.get_ticks()/1000)))
-		ins_n3.move(int(round(pygame.time.get_ticks()/1000)))
+		ins_n1.move1(int(round(pygame.time.get_ticks()/1000)))
+		ins_n2.move2(int(round(pygame.time.get_ticks()/1000)))
+		ins_n3.move3(int(round(pygame.time.get_ticks()/1000)))
 
 		n1 =  {'rect':pygame.Rect(370,invertfloor(ins_n1.floor),elevator_height, elevator_width)}
 		n2 =  {'rect':pygame.Rect(400,invertfloor(ins_n2.floor),elevator_height, elevator_width)}
