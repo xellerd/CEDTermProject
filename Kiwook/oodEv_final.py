@@ -203,17 +203,29 @@ class Elevator:
 
     def totalTime(self):
         time = 0
+        fromf = self.floor
+        tof = self.dest[0].floor
         weight = self.passenger
 
-        for i in range(len(self.dest)-1):
-            time = time + abs(self.dest[i+1].floor - self.dest[i].floor) * MOVINGTIME
-        time = time + len(self.dest) * STOPTIME
+        # for i in range(len(self.dest)-1):
+        #     time = time + abs(self.dest[i+1].floor - self.dest[i].floor) * MOVINGTIME
+        # time = time + len(self.dest) * STOPTIME
 
-        for i in range(len(self.dest)):
+        for i in range(len(self.dest)-1):
+            time = time + abs(tof-fromf)*weight*MOVINGTIME
+            time = time + weight * STOPTIME
+            fromf = self.dest[i].floor
+            tof = self.dest[i+1].floor
             weight = weight + self.dest[i].weight
             if weight > MAXLOAD:
                 time = time * 10000
-                break
+
+        print("totaltime : %d" % time)
+        # for i in range(len(self.dest)):
+        #     weight = weight + self.dest[i].weight
+        #     if weight > MAXLOAD:
+        #         time = time * 10000
+        #         break
 
         return time
 

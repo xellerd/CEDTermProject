@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pygame
 import sys
 from pygame.locals import*
@@ -12,7 +14,7 @@ BLUE =(0,0,255)
 BLACK=(0,0,0)
 CAPTION="Oldelevator"
 
-#층수 12층
+# 층수 12층
 elevator_width = 30
 elevator_height = 10
 #
@@ -28,7 +30,7 @@ clock = pygame.time.Clock()
 #
 def drawClock(count):
 	global gamePad, clockcount
-	
+
 	font = pygame.font.Font('Rock.ttf', 8)
 	text = font.render('Clock:'+str(count),True,BLACK)
 	gamePad.blit(text,(0,0))
@@ -84,8 +86,13 @@ def rungame(): # rungame()
 	gamePad.fill(WHITE)
 	clockcount =0
 	#passanger_list(time, weight, departure, arrival)
+<<<<<<< HEAD
 	passenger_list = [oodEv_final.Passenger(1, 2, 3, 6), oodEv_final.Passenger(12, 3, 7, 8),oodEv_final.Passenger(11,15,1,5),oodEv_final.Passenger(2,10,3,7),oodEv_final.Passenger(5,10,10,5)]
 	
+=======
+	passenger_list = [oodEv_final.Passenger(1, 2, 3, 6), oodEv_final.Passenger(12, 3, 7, 8)]
+
+>>>>>>> e413017a78e66348bc89cea870d35e2d581cc9f5
 	o1_y=400
 	o2_y=400
 	o3_y=400
@@ -106,14 +113,24 @@ def rungame(): # rungame()
 		#elev 알고리즘 방향키 위 누르면 t실행해보는걸로 하자
 		#  if event.type == KEYUP:
 			#다다다다다다다닥
+<<<<<<< HEAD
 			
+=======
+
+		passengerSearch = oodEv_final.passengerSearch(passenger_list,clock)
+>>>>>>> e413017a78e66348bc89cea870d35e2d581cc9f5
 		passengerIndex = oodEv_final.passengerSearch(passenger_list,clock)
 		passenger = passenger_list[passengerIndex]
-		
+
+
+
+		passengerIndex = oodEv_final.passengerSearch(passenger_list,clock)
+		passenger = passenger_list[passengerIndex]
+
 		ins_n1 = oodEv_final.Elevator()
 		ins_n2 = oodEv_final.Elevator()
 		ins_n3 = oodEv_final.Elevator()
-	
+
 		if passenger_list != -1:
 			oodEv_final.evCall(ins_n1,ins_n2,ins_n3,passenger)
 
@@ -147,7 +164,7 @@ def rungame(): # rungame()
 
 #그리는 부분
 		floor_end=[400,370,340,310,280,250,220,190,160,130,100,70]
-		for h in floor_end:	
+		for h in floor_end:
 			pygame.draw.line(gamePad, BLACK, (0,h),(100,h),1)
 			pygame.draw.line(gamePad, BLACK, (360,h),(450,h),1)
 		pygame.draw.line(gamePad, BLACK, (100,10),(100,490),3)
@@ -168,7 +185,7 @@ def rungame(): # rungame()
 		dispMessage('Throughput = ', 400)
 			#기욱씨 임시 인스턴스의 경우 소욧시간변수(=tempEV1,tempEV2,tempEV3)
 			#영준형 임시 인스턴스의 경우 소욧시간변수(=)
-		# Throughput = passenger_count * arrivaltime_all / 설정time 
+		# Throughput = passenger_count * arrivaltime_all / 설정time
 		# dispMessage(Throughput, 410)
 
 		pygame.display.update()
@@ -183,6 +200,12 @@ def initGame():
 	pygame.init()
 	gamePad = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 	pygame.display.set_caption(CAPTION)
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> e413017a78e66348bc89cea870d35e2d581cc9f5
 	rungame()
 
 

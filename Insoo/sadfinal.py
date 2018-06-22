@@ -102,9 +102,16 @@ def rungame():
 		for b2 in Newboxes:
 			pygame.draw.rect(gamePad,RED,b2['rect'])
 
+		# if ins_n1.floor가 바뀐다면 
+		# 	dispMessage(data, n1위치)
+		# elif ins_n2.floor가 바뀐다면
+		# 	dispMessage(data, n2위치)
+		# elif ins_n3.floor가 바뀐다면
+		# 	dispMessage(data, n3위치)
 
 		data = "%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n" % (t, ins_n1.floor, ins_n1.dir, ins_n1.passenger, ins_n2.floor, ins_n2.dir, ins_n2.passenger, ins_n3.floor, ins_n3.dir, ins_n3.passenger)
 		dispMessage(data, 60)
+
 		t = t+1
 		print(t)
 		# dispMessage(throughput, 400)
