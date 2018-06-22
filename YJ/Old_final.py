@@ -4,10 +4,13 @@ MOVINGTIME = 3
 STOPTIME = 5
 MAXLOAD = 20
 MAXFLOOR = 12
-TMAX = 30
+TMAX = 40
 UP = 1
 STOP = 0
 DOWN = -1
+
+
+
 
 #각 층별 호출발생 확률값
 upProblist = [0.8, 0.75, 0.3, 0.4, 0.6, 0.45, 0.5, 0.2, 0.2, 0.1, 0.05, 0] 
@@ -23,18 +26,27 @@ class user:
 		self.start = random.randint(1, 12) #시작층
 		self.destination = random.randint(1, 12) #목적층
 		#호출 방향
-		if self.destination - self.start > 0:
-			self.wantDirect = 1
-		elif self.destination - self.start < 0:
-			self.wantDirect = -1
+		#self.wantDirect = (self.destination - self.start)/abs(self.destination - self.start)
+		self.wantDirect = direct(self.destination, self.start)
 		
-
+	
+def direct(destination, start):
+	wantDirect = 0
+	if destination - start > 0:
+		wantDirect = 1
+	elif destination - start < 0:
+		wantDirect = -1
+	return wantDirect
 
 
 
 
 class elevator:
 	global elv1Passengerlist, elv2Passengerlist, elv3Passengerlist
+	objCount1 = 0
+	objCount2 = 0
+	objCount3 = 0
+	
 
 	def __init__(self):
 		self.elevaDirect = random.randint(-1, 1) #-1는 아래로, 0은 정지, 1은 위로 움직이고 있는 상태
@@ -55,13 +67,15 @@ class elevator:
 
 			if elevatorObj.presentFloor == elv1Passengerlist[0]:
 				time += STOPTIME
-				elv1Passengerlist.pop(0)
-				if elv1Passengerlist[0] > elevatorObj.presentFloor:
+				del elv1Passengerlist[0]
+				elevator1.objCount1 += 1
+				if elv1Passengerlist == []:
+					elevatorObj.elevaDirect = 0
+				elif elv1Passengerlist[0] > elevatorObj.presentFloor:
 					elevatorObj.elevaDirect = 1
 				elif elv1Passengerlist[0] < elevatorObj.presentFloor:
 					elevatorObj.elevaDirect = -1
-				elif elv1Passengerlist == []:
-					elevatorObj.elevaDirect = 0
+				
 
 			else:
 				if (time - elevatorObj.time) == MOVINGTIME:
@@ -83,13 +97,15 @@ class elevator:
 
 			if elevatorObj.presentFloor == elv2Passengerlist[0]:
 				time += STOPTIME
-				elv2Passengerlist.pop(0)
-				if elv2Passengerlist[0] > elevatorObj.presentFloor:
+				del elv2Passengerlist[0]
+				elevator2.objCount2 += 1
+				if elv2Passengerlist == []:
+					elevatorObj.elevaDirect = 0
+				elif elv2Passengerlist[0] > elevatorObj.presentFloor:
 					elevatorObj.elevaDirect = 1
 				elif elv2Passengerlist[0] < elevatorObj.presentFloor:
 					elevatorObj.elevaDirect = -1
-				elif elv2Passengerlist == []:
-					elevatorObj.elevaDirect = 0
+				
 
 			else:
 				if (time - elevatorObj.time) == MOVINGTIME:
@@ -111,13 +127,15 @@ class elevator:
 
 			if elevatorObj.presentFloor == elv3Passengerlist[0]:
 				time += STOPTIME
-				elv3Passengerlist.pop(0)
-				if elv3Passengerlist[0] > elevatorObj.presentFloor:
+				del elv3Passengerlist[0]
+				elevator3.objCount3 += 1
+				if elv3Passengerlist == []:
+					elevatorObj.elevaDirect = 0
+				elif elv3Passengerlist[0] > elevatorObj.presentFloor:
 					elevatorObj.elevaDirect = 1
 				elif elv3Passengerlist[0] < elevatorObj.presentFloor:
 					elevatorObj.elevaDirect = -1
-				elif elv3Passengerlist == []:
-					elevatorObj.elevaDirect = 0
+				
 
 			else:
 				if (time - elevatorObj.time) == MOVINGTIME:
@@ -130,9 +148,12 @@ class elevator:
 
 
 	def move1(self, time, elevator):
-		if elevator.presentFloor == elv1Passengerlist[0]:
+		if (elv1Passengerlist == []):
 			time += STOPTIME
-			elv1Passengerlist.pop(0)
+		elif elevator.presentFloor == elv1Passengerlist[0]:
+			time += STOPTIME
+			del elv1Passengerlist[0]
+			elevator1.objCount1 += 1
 			if elv1Passengerlist == []:
 				elevator.elevaDirect = 0
 			else:
@@ -153,9 +174,12 @@ class elevator:
 
 
 	def move2(self, time, elevator):
-		if elevator.presentFloor == elv2Passengerlist[0]:
+		if (elv2Passengerlist == []):
 			time += STOPTIME
-			elv2Passengerlist.pop(0)
+		elif elevator.presentFloor == elv2Passengerlist[0]:
+			time += STOPTIME
+			del elv2Passengerlist[0]
+			elevator2.objCount2 += 1
 			if elv2Passengerlist == []:
 				elevator.elevaDirect = 0
 			else:
@@ -176,9 +200,12 @@ class elevator:
 
 
 	def move3(self, time, elevator):
-		if elevator.presentFloor == elv3Passengerlist[0]:
+		if (elv3Passengerlist == []):
 			time += STOPTIME
-			elv3Passengerlist.pop(0)
+		elif elevator.presentFloor == elv3Passengerlist[0]:
+			time += STOPTIME
+			del elv3Passengerlist[0]
+			elevator3.objCount3 += 1
 			if elv3Passengerlist == []:
 				elevator.elevaDirect = 0
 			else:
@@ -287,11 +314,11 @@ elevator2 = elevator()
 elevator3 = elevator()
 
 #각 엘리베이터에 임의의 초기 목적층을 설정해줌
-elv1Passengerlist = list()
+elv1Passengerlist = []
 elv1Passengerlist.append(random.randint(1, 12))
-elv2Passengerlist = list()
+elv2Passengerlist = []
 elv2Passengerlist.append(random.randint(1, 12))
-elv3Passengerlist = list()
+elv3Passengerlist = []
 elv3Passengerlist.append(random.randint(1, 12))
 
 
@@ -332,7 +359,16 @@ while t <= TMAX:
 		elevator3.move3(t, elevator3)
 
 
+	print(elv1Passengerlist)
+	print(elv2Passengerlist)
+	print(elv3Passengerlist)
+	print("1호기 현재층 : " + str(elevator1.presentFloor))
+	print("2호기 현재층 : " + str(elevator2.presentFloor))
+	print("3호기 현재층 : " + str(elevator3.presentFloor))
 
 	t = t + 1
 
-
+print("1호기가 옮긴 승객수 : " + str(elevator1.objCount1))
+print("2호기가 옮긴 승객수 : " + str(elevator2.objCount2))
+print("3호기가 옮긴 승객수 : " + str(elevator3.objCount3))
+print("수송효율 = " + str(((elevator1.objCount1+elevator2.objCount2+elevator3.objCount3)/TMAX)))
