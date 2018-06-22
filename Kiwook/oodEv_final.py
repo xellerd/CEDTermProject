@@ -140,14 +140,14 @@ class Elevator:
                 if self.floor <= departure.floor:
                     self.destUp = self.destUp + destList
                 elif self.floor > departure.floor:
-                    self.destDown.append(departure)
-                    self.destUp.append(arrival)
-                    self.dir == DOWN
+                    self.destDown = [departure]
+                    self.destUp = [arrival]
+                    self.dir = DOWN
             elif destDir == DOWN:
                 if self.floor < departure.floor:
-                    self.destUp.append(departure)
-                    self.destDown.append(arrival)
-                    self.dir == UP
+                    self.destUp = [departure]
+                    self.destDown = [arrival]
+                    self.dir = UP
                 elif self.floor >= departure.floor:
                     self.destDown = self.destDown + destList
 
@@ -212,11 +212,13 @@ class Elevator:
         # time = time + len(self.dest) * STOPTIME
 
         for i in range(len(self.dest)-1):
+            weight = weight + self.dest[i].weight
             time = time + abs(tof-fromf)*weight*MOVINGTIME
             time = time + weight * STOPTIME
             fromf = self.dest[i].floor
             tof = self.dest[i+1].floor
-            weight = weight + self.dest[i].weight
+            # weight = weight + self.dest[i].weight
+            print("weight : %d" % weight)
             if weight > MAXLOAD:
                 time = time * 10000
 
@@ -240,6 +242,7 @@ def evCall(ev1, ev2, ev3, passenger):
     tempEv1 = copy.deepcopy(ev1)
     tempEv2 = copy.deepcopy(ev2)
     tempEv3 = copy.deepcopy(ev3)
+
 
     tempEv1.addDest(departure, arrival)
     tempEv2.addDest(departure, arrival)
@@ -275,7 +278,7 @@ def passengerSearch(passengerList, time):
 if __name__ == '__main__':
     global passengerList
     #passenger(time, weight, departure, arrival)
-    passengerList = [Passenger(1, 15, 1, 5), Passenger(2, 10, 3, 7)]
+    passengerList = [Passenger(1, 3, 10, 5), Passenger(2, 10, 3, 7)]
 
     f1 = open("./RealTime.dat", 'w')
     data = "time\tEv1.floor\tEv1.dir\t\tEv1.passenger\tEv2.floor\tEv2.dir\t\tEv2.passenger\tEv3.floor\tEv3.dir\t\tEv3.passenger\n"
