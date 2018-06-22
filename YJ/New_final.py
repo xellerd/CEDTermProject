@@ -6,8 +6,8 @@ import random
 UP = 1
 STOP = 0
 DOWN = -1
-MOVINGTIME = 3
-STOPTIME = 5
+MOVINGTIME = 2
+STOPTIME = 3
 MAXLOAD = 20
 MAXFLOOR = 12
 OPEN = 1
@@ -218,7 +218,7 @@ class Elevator:
     def totalTime(self):
         time = 0
         fromf = self.floor
-        print("debug: self.dest len : %d " % len(self.dest))
+        # print("debug: self.dest len : %d " % len(self.dest))
         tof = self.dest[0].floor
         weight = self.passenger
 
@@ -237,7 +237,7 @@ class Elevator:
             if weight > MAXLOAD:
                 time = time * 10000
 
-        print("totaltime : %d" % time)
+        # print("totaltime : %d" % time)
         # for i in range(len(self.dest)):
         #     weight = weight + self.dest[i].weight
         #     if weight > MAXLOAD:
@@ -304,7 +304,10 @@ if __name__ == '__main__':
     #passenger(time, weight, departure, arrival)
     passengerList = []
     for i in range(1, 11):
-        p = Passenger(timelist[i-1], random.randint(1, 3), random.randint(1, 12), random.randint(1, 12))
+        while True:
+            p = Passenger(timelist[i-1], random.randint(1, 3), random.randint(1, 12), random.randint(1, 12))
+            if p.arrival != p.departure:
+                break
         passengerList.append(p)
 
     for i in range(len(passengerList)):
@@ -344,23 +347,23 @@ if __name__ == '__main__':
             print([ev1.dest[i].floor, ev1.dest[i].weight])
         print("ev1.dir : %d" % ev1.dir)
         #
-        print(" ")
-        #
-        print("ev2.floor : %d" % ev2.floor)
-        print("ev2.passenger : %d" % ev2.passenger)
-        print("ev2.dest")
-        for i in range(len(ev2.dest)):
-            print([ev2.dest[i].floor, ev2.dest[i].weight])
-        print("ev2.dir : %d" % ev2.dir)
-        #
-        print(" ")
-        #
-        print("ev3.floor : %d" % ev3.floor)
-        print("ev3.passenger : %d" % ev3.passenger)
-        print("ev3.dest")
-        for i in range(len(ev3.dest)):
-            print([ev3.dest[i].floor, ev3.dest[i].weight])
-        print("ev3.dir : %d" % ev3.dir)
+        # print(" ")
+        # #
+        # print("ev2.floor : %d" % ev2.floor)
+        # print("ev2.passenger : %d" % ev2.passenger)
+        # print("ev2.dest")
+        # for i in range(len(ev2.dest)):
+        #     print([ev2.dest[i].floor, ev2.dest[i].weight])
+        # print("ev2.dir : %d" % ev2.dir)
+        # #
+        # print(" ")
+        # #
+        # print("ev3.floor : %d" % ev3.floor)
+        # print("ev3.passenger : %d" % ev3.passenger)
+        # print("ev3.dest")
+        # for i in range(len(ev3.dest)):
+        #     print([ev3.dest[i].floor, ev3.dest[i].weight])
+        # print("ev3.dir : %d" % ev3.dir)
 
         print(" ")
 
