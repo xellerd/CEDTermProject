@@ -98,13 +98,24 @@ def rungame():
 
 		#인터페이스
 		drawClock(t)
+		data_o1 = "old[1] :passenger:%d \t floor:%d" %(ins_o1.passenger,ins_o1.presentFloor)
+		data_o2 = "old[2] :passenger:%d \t floor:%d" %(ins_o2.passenger,ins_o2.presentFloor)
+		data_o3 = "old[3] :passenger:%d \t floor:%d" %(ins_o3.passenger,ins_o3.presentFloor)
 		dispMessage('passenger_info',20)
+		#passanger info : passenger 수 ,호출 층, 목적층, 배차된 엘리베이터
+		# passengerMessage = "passenger : %d\t passenger floor : %d\t destination : %d\n Dispatch Old:%d\n Dispatch New:%d"%()
+
 
 		dispMessage('o1 ,n1',80)
-		# dispMessage(Old_final.passengercount)
+		dispMessage(data_o1,100)
+
 		dispMessage('o2 ,n2',170)
+		dispMessage(data_o2,190)
+		# dispMessage(ins_o2.passenger,100)
 
 		dispMessage('o3 ,n3',260)
+		dispMessage(data_o3,280)
+		# dispMessage(ins_o3.passenger,100)
 
 		floor_end=[400,370,340,310,280,250,220,190,160,130,100,70]
 		for h in floor_end:	
