@@ -1,17 +1,20 @@
+# -*- coding: utf-8 -*-
+
 import copy
+import random
 #constant
 UP = 1
 STOP = 0
 DOWN = -1
-MOVINGTIME = 3
-STOPTIME = 5
+MOVINGTIME = 2
+STOPTIME = 3
 MAXLOAD = 20
 MAXFLOOR = 12
 OPEN = 1
 CLOSE = 0
-TMAX = 30
+TMAX = 40
 
-class Passenger:
+class Passenger:  #승객
     time = 0
     weight = 0
     departure = 0
@@ -27,7 +30,7 @@ class Passenger:
     def setArrivalTime(self, arrivalTime):
         self.arrivalTime = arrivalTime
 
-class Destination:
+class Destination:  #승객 목적지
     floor = 0
     weight = 0
     time = 0
@@ -36,6 +39,14 @@ class Destination:
         self.floor = floor
         self.weight = weight
         self.time = time
+
+def ddirect(departure, arrival):
+        destDir = 0
+        if arrival.floor - departure.floor > 0:
+            destDir = 1
+        elif arrival.floor - departure.floor < 0:
+            destDir = -1
+        return destDir
 
 class Elevator:
     passenger = 0
@@ -115,8 +126,11 @@ class Elevator:
             self.dest = self.destDown + self.destUp + self.destAdd
 
 
+
+
     def addDest(self, departure, arrival):
-        destDir = (arrival.floor - departure.floor) / abs(arrival.floor - departure.floor)
+
+        destDir = ddirect(departure, arrival)
         destList = [departure, arrival]
 
         if self.dir == UP:
@@ -204,6 +218,7 @@ class Elevator:
     def totalTime(self):
         time = 0
         fromf = self.floor
+        # print("debug: self.dest len : %d " % len(self.dest))
         tof = self.dest[0].floor
         weight = self.passenger
 
@@ -212,17 +227,17 @@ class Elevator:
         # time = time + len(self.dest) * STOPTIME
 
         for i in range(len(self.dest)-1):
-            weight = weight + self.dest[i].weight
-            time = time + abs(tof-fromf)*weight*MOVINGTIME
-            time = time + weight * STOPTIME
+            # print("fromf\ttof\tweight")
+            # print("%d\t%d\t%d" % (fromf, tof, weight))
+            time = time + abs(tof-fromf)*MOVINGTIME
+            time = time + STOPTIME
             fromf = self.dest[i].floor
             tof = self.dest[i+1].floor
-            # weight = weight + self.dest[i].weight
-            print("weight : %d" % weight)
+            weight = weight + self.dest[i].weight
             if weight > MAXLOAD:
                 time = time * 10000
 
-        print("totaltime : %d" % time)
+        # print("totaltime : %d" % time)
         # for i in range(len(self.dest)):
         #     weight = weight + self.dest[i].weight
         #     if weight > MAXLOAD:
@@ -243,10 +258,10 @@ def evCall(ev1, ev2, ev3, passenger):
     tempEv2 = copy.deepcopy(ev2)
     tempEv3 = copy.deepcopy(ev3)
 
-
     tempEv1.addDest(departure, arrival)
     tempEv2.addDest(departure, arrival)
     tempEv3.addDest(departure, arrival)
+    # print("tempEV destlen : %d %d %d" %(tempEv1.dest))
 
     timeEv1 = tempEv1.totalTime()
     timeEv2 = tempEv2.totalTime()
@@ -273,15 +288,34 @@ def passengerSearch(passengerList, time):
 
     return -1
 
-def main():
 
+
+if __name__ == '__main__':
     global passengerList
-    #passenger(time, weight, departure, arrival)
-    passengerList = [Passenger(1, 3, 10, 5), Passenger(2, 10, 3, 7)]
 
-    f1 = open("./RealTime.dat", 'w')
-    data = "time\tEv1.floor\tEv1.dir\t\tEv1.passenger\tEv2.floor\tEv2.dir\t\tEv2.passenger\tEv3.floor\tEv3.dir\t\tEv3.passenger\n"
-    f1.write(data)
+    #timelist를 유저수만큼 랜덤하게 생성
+    timelist = [1]
+    time_num = random.randint(1, 30)
+    for i in range(9):
+        while time_num in timelist:
+            time_num = random.randint(1, 30)
+        timelist.append(time_num)
+    timelist.sort()
+    #passenger(time, weight, departure, arrival)
+    passengerList = []
+    for i in range(1, 11):
+        while True:
+            p = Passenger(timelist[i-1], random.randint(1, 3), random.randint(1, 12), random.randint(1, 12))
+            if p.arrival != p.departure:
+                break
+        passengerList.append(p)
+
+    for i in range(len(passengerList)):
+        print("%d\t%d\t%d\t%d" %(passengerList[i].time, passengerList[i].weight, passengerList[i].departure, passengerList[i].arrival))
+
+    #f1 = open("./RealTime.dat", 'w')
+    #data = "time\tEv1.floor\tEv1.dir\t\tEv1.passenger\tEv2.floor\tEv2.dir\t\tEv2.passenger\tEv3.floor\tEv3.dir\t\tEv3.passenger\n"
+    #f1.write(data)
 
 
     ev1 = Elevator()
@@ -291,10 +325,10 @@ def main():
     t = 0
 
     while t <= TMAX:
+        print("t : %d" %t)
 
-
-        data = "%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n" % (t, ev1.floor, ev1.dir, ev1.passenger, ev2.floor, ev2.dir, ev2.passenger, ev3.floor, ev3.dir, ev3.passenger)
-        f1.write(data)
+        #data = "%d\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n" % (t, ev1.floor, ev1.dir, ev1.passenger, ev2.floor, ev2.dir, ev2.passenger, ev3.floor, ev3.dir, ev3.passenger)
+        #f1.write(data)
 
         passengerIndex = passengerSearch(passengerList, t)
         passenger = passengerList[passengerIndex]
@@ -306,41 +340,43 @@ def main():
         ev2.move(t)
         ev3.move(t)
 
-        # print("ev1.floor : %d" % ev1.floor)
-        # print("ev1.passenger : %d" % ev1.passenger)
-        # print("ev1.dest")
-        # for i in range(len(ev1.dest)):
-        #     print([ev1.dest[i].floor, ev1.dest[i].weight])
-        # print("ev1.dir : %d" % ev1.dir)
+        print("ev1.floor : %d" % ev1.floor)
+        print("ev1.passenger : %d" % ev1.passenger)
+        print("ev1.dest")
+        for i in range(len(ev1.dest)):
+            print([ev1.dest[i].floor, ev1.dest[i].weight])
+        print("ev1.dir : %d" % ev1.dir)
         #
         # print(" ")
-        #
+        # #
         # print("ev2.floor : %d" % ev2.floor)
         # print("ev2.passenger : %d" % ev2.passenger)
         # print("ev2.dest")
         # for i in range(len(ev2.dest)):
         #     print([ev2.dest[i].floor, ev2.dest[i].weight])
-        #
+        # print("ev2.dir : %d" % ev2.dir)
+        # #
         # print(" ")
-        #
+        # #
         # print("ev3.floor : %d" % ev3.floor)
         # print("ev3.passenger : %d" % ev3.passenger)
         # print("ev3.dest")
         # for i in range(len(ev3.dest)):
         #     print([ev3.dest[i].floor, ev3.dest[i].weight])
-        #
-        # print(" ")
+        # print("ev3.dir : %d" % ev3.dir)
+
+        print(" ")
 
 
         t = t + 1
-        # print(" ")
+        print(" ")
 
-    f2 = open("./passengerList.dat", 'w')
-    data = "time\tarrivalTime\tweight\t\tdeparture\tarrival\n"
-    f2.write(data)
-    for i in range(len(passengerList)):
-        data = "%d\t%d\t\t%d\t\t%d\t\t%d\n" % (passengerList[i].time, passengerList[i].arrivalTime, passengerList[i].weight, passengerList[i].departure, passengerList[i].arrival)
-        f2.write(data)
+    #f2 = open("./passengerList.dat", 'w')
+    #data = "time\tarrivalTime\tweight\t\tdeparture\tarrival\n"
+    #f2.write(data)
+    #for i in range(len(passengerList)):
+    #    data = "%d\t%d\t\t%d\t\t%d\t\t%d\n" % (passengerList[i].time, passengerList[i].arrivalTime, passengerList[i].weight, passengerList[i].departure, passengerList[i].arrival)
+    #    f2.write(data)
 
-    f1.close()
-    f2.close()
+    #f1.close()
+    #f2.close()

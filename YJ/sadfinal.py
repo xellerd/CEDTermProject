@@ -3,7 +3,10 @@ import sys
 from time import sleep
 import time
 from pygame.locals import*
+<<<<<<< HEAD:Insoo/sadfinal.py
 import oodEv_final
+=======
+>>>>>>> c8b68aa47cbed121c4113ec11d835e43aeef07dd:YJ/sadfinal.py
 import Old_final
 
 WINDOW_WIDTH = 450
@@ -31,7 +34,7 @@ def textObject(text,font):
 
 def dispMessage(text,y):
 	global gamePad
-	largeText = pygame.font.Font('Rock.ttf',10)
+	largeText = pygame.font.Font('freesansbold.ttf',10)
 	TextSurf, TextRect = textObject(text,largeText)
 	TextRect.center = (225,y)
 	gamePad.blit(TextSurf, TextRect)
@@ -41,7 +44,7 @@ def dispMessage(text,y):
 def drawClock(count):
 	global gamePad, clockcount
 	
-	font = pygame.font.Font('Rock.ttf', 10)
+	font = pygame.font.Font('freesansbold.ttf', 10)
 	text = font.render('Clock:'+str(count),True,BLACK)
 	gamePad.blit(text,(0,0))
 
@@ -62,6 +65,7 @@ def rungame():
 	clock_count=0
 	gamePad.fill(WHITE)
 	
+<<<<<<< HEAD:Insoo/sadfinal.py
 	# ins_o1 = Old_final.elevator()
 	# ins_o2 = Old_final.elevator()
 	# ins_o3 = Old_final.elevator()
@@ -74,6 +78,12 @@ def rungame():
 	ins_n2 = oodEv_final.Elevator()
 	ins_n3 = oodEv_final.Elevator()
 
+=======
+	ins_n1 = Old_final.elevator1
+	ins_n2 = Old_final.elevator2
+	ins_n3 = Old_final.elevator3
+	
+>>>>>>> c8b68aa47cbed121c4113ec11d835e43aeef07dd:YJ/sadfinal.py
 
 	dispMessage('o1 ,n1',20)
 	dispMessage('o2 ,n2',150)
@@ -113,9 +123,18 @@ def rungame():
 		x = 40
 		o1 = pygame.Rect(x,o1_y,elevator_height,elevator_width)
 
+<<<<<<< HEAD:Insoo/sadfinal.py
 		o2 = pygame.Rect(40,invertfloor(ins_o2.presentFloor),elevator_height,elevator_width)
 
 		o3 = pygame.Rect(70,invertfloor(ins_o3.presentFloor),elevator_height,elevator_width)
+=======
+		#passengerList = [oodEv_final.Passenger(1, 2, 3, 6), oodEv_final.Passenger(2,5,7,2)]	
+		#passengerIndex = oodEv_final.passengerSearch(passengerList, t)
+		#passenger = passengerList[passengerIndex]
+
+		#if userIndex != -1:
+		#	Old_final.evCall(ins_n1,ins_n2,ins_n3,passenger)
+>>>>>>> c8b68aa47cbed121c4113ec11d835e43aeef07dd:YJ/sadfinal.py
 
 		Oldboxes = [o1,o2,o3]
 
@@ -127,9 +146,9 @@ def rungame():
 		pygame.draw.rect(gamePad,RED,o3,0)
 			
 
-		ins_n1.move(int(round(pygame.time.get_ticks()/1000)))
-		ins_n2.move(int(round(pygame.time.get_ticks()/1000)))
-		ins_n3.move(int(round(pygame.time.get_ticks()/1000)))
+		ins_n1.move1(int(round(pygame.time.get_ticks()/1000)))
+		ins_n2.move2(int(round(pygame.time.get_ticks()/1000)))
+		ins_n3.move3(int(round(pygame.time.get_ticks()/1000)))
 
 		n1 = pygame.Rect(380,invertfloor(ins_n1.floor),elevator_height,elevator_width)
 		n2 = pygame.Rect(410,invertfloor(ins_n2.floor),elevator_height,elevator_width)
