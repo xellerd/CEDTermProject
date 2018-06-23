@@ -28,7 +28,7 @@ class user:
 		self.start = random.randint(1, 12) #시작층
 		self.destination = random.randint(1, 12) #목적층
 		#호출 방향
-<<<<<<< HEAD
+
 		#self.wantDirect = (self.destination - self.start)/abs(self.destination - self.start)
 		self.wantDirect = direct(self.destination, self.start)
 		
@@ -40,14 +40,7 @@ def direct(destination, start):
 	elif destination - start < 0:
 		wantDirect = -1
 	return wantDirect
-=======
-		if self.destination - self.start > 0:
-			self.wantDirect = 1
-		elif self.destination - self.start < 0:
-			self.wantDirect = -1
 
-
->>>>>>> 3d7d9250f434b987cdd043a4b6a8ecac231c073f
 
 
 
@@ -382,11 +375,9 @@ while t <= TMAX:
 	print("3호기 현재층 : " + str(elevator3.presentFloor))
 
 	t = t + 1
-<<<<<<< HEAD
+
 
 print("1호기가 옮긴 승객수 : " + str(elevator1.objCount1))
 print("2호기가 옮긴 승객수 : " + str(elevator2.objCount2))
 print("3호기가 옮긴 승객수 : " + str(elevator3.objCount3))
 print("수송효율 = " + str(((elevator1.objCount1+elevator2.objCount2+elevator3.objCount3)/TMAX)))
-=======
->>>>>>> 3d7d9250f434b987cdd043a4b6a8ecac231c073f
