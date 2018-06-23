@@ -273,9 +273,8 @@ def passengerSearch(passengerList, time):
 
     return -1
 
+def main():
 
-
-if __name__ == '__main__':
     global passengerList
     #passenger(time, weight, departure, arrival)
     passengerList = [Passenger(1, 3, 10, 5), Passenger(2, 10, 3, 7)]
