@@ -1,19 +1,27 @@
-class P:
-    element1 = 0
-    element2 = 0
-    element3 = 0
+class Destination:
+    floor = 0
+    weight = 0
+    time = 0
 
-    def __init__(self, element1, element2, element3):
-        self.element1 = element1
-        self.element2 = element2
-        self.element3 = element3
+    def __init__(self, floor, weight, time):
+        self.floor = floor
+        self.weight = weight
+        self.time = time
+
+    def __repr__(self):
+        return 'Destination(floor="%s", weight="%s", time="%s")' % (self.floor, self.weight, self.time)
+    def keyfunc1(c):
+        return c.floor
+    def keyfunc2(c):
+        return c.weight
+    def keyfunc3(c):
+        return c.time
 
 if __name__ == '__main__':
-    p1 = P(1, 2, 3)
 
-    a = p1.element1
+    destList = [Destination(6, 2, 3), Destination(2, 3, 4), Destination(2, 5, 4), Destination(3, 4, 5), Destination(1, 2, 3)]
 
-    a = a + 1
+    destList.sort(key=Destination.keyfunc1)
+    print(destList)
 
-    print("a: %d" % a)
-    print("p1.element1 : %d" % p1.element1)
+    print(destList[0].floor)
