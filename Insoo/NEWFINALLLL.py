@@ -127,6 +127,7 @@ class Elevator:
 
     def addDest(self, passenger):
         print("addDest!")
+        print(id(self))
         departure = Destination(passenger.departure, passenger.weight, passenger.time)
         arrival = Destination(passenger.arrival, -passenger.weight, passenger.time)
 
@@ -136,51 +137,51 @@ class Elevator:
         if self.direction == STOP:
             if destDir == UP:
                 if self.floor == departure.floor:
-                    print("case 1")
+                    # print("case 1")
                     self.destUp.append(arrival)
                     self.dest.append(departure)
                     self.dest = self.dest + self.destUp
                 elif self.floor < departure.floor:
-                    print("case 2")
+                    # print("case 2")
                     self.destUp.append(departure)
                     self.destUp.append(arrival)
                     self.dest = self.dest + self.destUp
                 elif self.floor > departure.floor:
-                    print("case 3")
+                    # print("case 3")
                     self.destDown.append(departure)
                     self.destUp.append(arrival)
                     self.dest = self.destDown + self.destUp
             elif destDir == DOWN:
                 if self.floor == departure.floor:
-                    print("case 4")
+                    # print("case 4")
                     self.destDown.append(arrival)
                     self.dest.append(departure)
                     self.dest = self.dest + self.destDown
                 elif self.floor > departure.floor:
-                    print("case 5")
+                    # print("case 5")
                     self.destDown.append(departure)
                     self.destDown.append(arrival)
                     self.dest = self.dest + self.destDown
                 elif self.floor < departure.floor:
-                    print("case 6")
+                    # print("case 6")
                     self.destUp.append(departure)
                     self.destDown.append(arrival)
                     self.dest = self.destUp + self.destDown
         elif self.direction == UP:
             if destDir == UP:
                 if self.floor <= departure.floor:
-                    print("case 7")
+                    # print("case 7")
                     self.destUp.append(departure)
                     self.destUp.append(arrival)
                     self.destUp.sort(key=Destination.keyfunc1)
                     self.dest = self.destUp + self.destDown + self.destAdd
                 elif self.floor > departure.floor:
-                    print("case 8")
+                    # print("case 8")
                     self.destAdd.append(departure)
                     self.destAdd.append(arrival)
                     self.dest = self.destUp + self.destDown + self.destAdd
             elif destDir == DOWN:
-                print("case 9")
+                # print("case 9")
                 self.destDown.append(departure)
                 self.destDown.append(arrival)
                 self.destDown.sort(key=Destination.keyfunc1)
@@ -189,35 +190,38 @@ class Elevator:
         elif self.direction == DOWN:
             if destDir == DOWN:
                 if self.floor >= departure.floor:
-                    print("case 10")
+                    # print("case 10")
                     self.destDown.append(departure)
                     self.destDown.append(arrival)
                     self.destDown.sort(key=Destination.keyfunc1)
                     self.destDown.reverse()
                     self.dest = self.destDown + self.destUp + self.destAdd
                 elif self.floor < departure.floor:
-                    print("case 11")
+                    # print("case 11")
                     self.destAdd.append(departure)
                     self.destAdd.append(arrival)
                     self.dest = self.destUp + self.destDown + self.destAdd
             elif destDir == UP:
-                print("case 12")
+                # print("case 12")
                 self.destUp.append(departure)
                 self.destUp.append(arrival)
                 self.destUp.sort(key=Destination.keyfunc1)
                 self.dest = self.destDown + self.destUp + self.destAdd
 
     def totalTime(self):
-        return len(self.dest)
+        time = 0
+        for destination in self.dest:
+            time = time + abs(self.floor - destination.floor)
+        return time
 
 def elevatorCall(elevatorList, passenger):
-    # timeList = []
-    # for elevator in elevatorList:
-    #     dcpElevator = copy.deepcopy(elevator)
-    #     dcpElevator.addDest(passenger)
-    #     timeList.append(dcpElevator.totalTime())
-    #
-    # idx = timeList.index(min(timeList))
+    timeList = []
+    for elevator in elevatorList:
+        dcpElevator = copy.deepcopy(elevator)
+        dcpElevator.addDest(passenger)
+        timeList.append(dcpElevator.totalTime())
+
+    idx = timeList.index(min(timeList))
     # print("idx : {0}".format(idx))
     elevatorList[0].addDest(passenger)
 
@@ -255,31 +259,27 @@ if __name__ == '__main__':
     t = 0
     passengerNum = 5
     elevatorNum = 3
-    elevatorList = []
-    passengerList = passengerGenerator(passengerNum)
+    ev1=Elevator()
+    ev2=Elevator()
+    ev3=Elevator()
+    elevatorList = [ev1,ev2,ev3]
+   
 
-    for i in range(len(passengerList)):
-        print(passengerList[i])
 
-    # for i in range(elevatorNum):
-    #     elevatorList.append(Elevator())
     # print(len(elevatorList))
-
-    ev1 = Elevator()
-    ev2 = Elevator()
-    ev3 = Elevator()
-
-    elevatorList = [ev1, ev2, ev3]
 
     while t <= TMAX:
         print("t : %d" % t)
+        passengerList = passengerGenerator(passengerNum)
 
         passenger = passengerSearch(passengerList, t)
         if passenger != None:
             elevatorCall(elevatorList, passenger)
 
-        for elevator in elevatorList:
-            elevator.move(t)
+
+            ev1.move(t)
+            ev2.move(t)
+            ev3.move(t)
 
         for elevator in elevatorList:
             print(id(elevator))

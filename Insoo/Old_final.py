@@ -63,6 +63,7 @@ class elevator:
 				elv1Passengerlist.reverse()
 
 			if elevatorObj.presentFloor == elv1Passengerlist[0]:
+				elevatorObj.passenger = userObj.userNum
 				time += STOPTIME
 				del elv1Passengerlist[0]
 				elevator1.objCount1 += 1

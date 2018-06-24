@@ -3,10 +3,9 @@ import sys
 from time import sleep
 import time
 from pygame.locals import*
-import oodEv_final
 import Old_final
-import New_final
 import NEWFINALLLL
+import random
 
 WINDOW_WIDTH = 450
 WINDOW_HEIGHT = 430
@@ -50,9 +49,6 @@ def invertfloor(floor):
 	floor = 400-30*(floor-1)
 	return floor
     
-
-
-
 def rungame():
 	global clock, gamePad
 	gamePad.fill(WHITE)
@@ -84,10 +80,9 @@ def rungame():
 	# totaltime = passengerList[0].[3]- passengerList[0].[2]
 	# passengercount += passengerList[1]
 	# throughput = totaltime * passengercount
-	TMAX = 400
+
 	t=0
 	while True:
-		
 		for event in pygame.event.get():
 			if event.type == QUIT:
 				pygame.quit()
@@ -101,25 +96,40 @@ def rungame():
 
 		#인터페이스
 		drawClock(t)
-		# data_o1 = "old[1] :passenger:%d \t floor:%d" %(ins_o1.passenger,ins_o1.presentFloor)
-		# data_o2 = "old[2] :passenger:%d \t floor:%d" %(ins_o2.passenger,ins_o2.presentFloor)
-		# data_o3 = "old[3] :passenger:%d \t floor:%d" %(ins_o3.passenger,ins_o3.presentFloor)
 		dispMessage('passenger_info',20)
 		#passanger info : passenger 수 ,호출 층, 목적층, 배차된 엘리베이터
 		# passengerMessage = "passenger : %d\t passenger floor : %d\t destination : %d\n Dispatch Old:%d\n Dispatch New:%d"%()
 
-
+		#타이틀 
 		dispMessage('o1 ,n1',80)
-		
-		# dispMessage(data_n1)
 		dispMessage('o2 ,n2',170)
-
-		# dispMessage(ins_o2.passenger,100)
-
 		dispMessage('o3 ,n3',260)
 
-		# dispMessage(ins_o3.passenger,100)
+		##객체생성 test>>>>>>>>>>>>>>>>>>>.>>>>>>>>>>>>>>>>>>.>>>>>>>>>>>>>>>>>>.>>>>>>>>>>>>>>>>>>.
+		# userlist = list()
+		# for i in range(1, 11):
+		# 	u = Old_final.user()
+		# 	userlist.append(u)
 
+		# #timelist를 유저수만큼 랜덤하게 생성
+		# timelist = [1]
+		# time_num = random.randint(1, 30)
+		# for i in range(9):
+		# 	while time_num in timelist:
+		# 		time_num = random.randint(1, 30)
+		# 	timelist.append(time_num)
+		# timelist.sort()
+
+		# #각 유저객체에 호출랜덤타임을 설정
+		# userlist = Old_final.useraddtime(userlist, timelist)
+		# # dispMessage(ins_o3.passenger,100)
+		# userIndex = Old_final.userSearch(userlist, t)
+		# if userIndex != -1:
+		# #현 시간에 해당하는 특정유저 확인_2
+		# 	userObj = userlist[userIndex]
+		# 	#호출로 인해 배차된 특정 엘리베이터 확인
+		# 	elevatorObj = Old_final.call(userObj, ins_o1, ins_o2, ins_o3)
+		# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		floor_end=[400,370,340,310,280,250,220,190,160,130,100,70]
 		for h in floor_end:	
 			pygame.draw.line(gamePad, BLACK, (0,h),(100,h),1)
@@ -181,23 +191,15 @@ def rungame():
 		dispMessage(data_n2,205)
 		dispMessage(data_n3,295)
 
-		#수송효율인데 아마 TMAX가 종료되는 시점에서 출력되는듯 합니다.
-		Throughput = str((ins_o1.objCount1+ins_o2.objCount2+ins_o3.objCount3)/TMAX)
-		dispMessage(Throughput,410)
- 
+		# Throughput = str((ins_o1.objCount1+ins_o2.objCount2+ins_o3.objCount3)/t)
+		# dispMessage(Throughput,410)
 		t = t+1
 		print(t)
-		# dispMessage(throughput, 400)
-
-		pygame.display.update()
 		clock.tick(TARGET_FPS)
 	pygame.quit()
 	quit()
 def initGame():
 	global clock, gamePad, Elevator
-
-
-
 	pygame.init()
 	gamePad = pygame.display.set_mode((WINDOW_WIDTH,WINDOW_HEIGHT))
 	pygame.display.set_caption(CAPTION)
