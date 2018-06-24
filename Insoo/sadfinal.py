@@ -5,6 +5,8 @@ import time
 from pygame.locals import*
 import oodEv_final
 import Old_final
+import New_final
+import NEWFINALLLL
 
 WINDOW_WIDTH = 450
 WINDOW_HEIGHT = 430
@@ -60,9 +62,9 @@ def rungame():
 	ins_o2 = Old_final.elevator()
 	ins_o3 = Old_final.elevator()
 	#NEW_ELEVATOR 객체생성
-	ins_n1 = oodEv_final.Elevator()
-	ins_n2 = oodEv_final.Elevator()
-	ins_n3 = oodEv_final.Elevator()
+	ins_n1 = NEWFINALLLL.Elevator()
+	ins_n2 = NEWFINALLLL.Elevator()
+	ins_n3 = NEWFINALLLL.Elevator()
 
 
 	dispMessage('o1 ,n1',20)
@@ -82,6 +84,7 @@ def rungame():
 	# totaltime = passengerList[0].[3]- passengerList[0].[2]
 	# passengercount += passengerList[1]
 	# throughput = totaltime * passengercount
+	TMAX = 400
 	t=0
 	while True:
 		
@@ -98,23 +101,23 @@ def rungame():
 
 		#인터페이스
 		drawClock(t)
-		data_o1 = "old[1] :passenger:%d \t floor:%d" %(ins_o1.passenger,ins_o1.presentFloor)
-		data_o2 = "old[2] :passenger:%d \t floor:%d" %(ins_o2.passenger,ins_o2.presentFloor)
-		data_o3 = "old[3] :passenger:%d \t floor:%d" %(ins_o3.passenger,ins_o3.presentFloor)
+		# data_o1 = "old[1] :passenger:%d \t floor:%d" %(ins_o1.passenger,ins_o1.presentFloor)
+		# data_o2 = "old[2] :passenger:%d \t floor:%d" %(ins_o2.passenger,ins_o2.presentFloor)
+		# data_o3 = "old[3] :passenger:%d \t floor:%d" %(ins_o3.passenger,ins_o3.presentFloor)
 		dispMessage('passenger_info',20)
 		#passanger info : passenger 수 ,호출 층, 목적층, 배차된 엘리베이터
 		# passengerMessage = "passenger : %d\t passenger floor : %d\t destination : %d\n Dispatch Old:%d\n Dispatch New:%d"%()
 
 
 		dispMessage('o1 ,n1',80)
-		dispMessage(data_o1,100)
-
+		
+		# dispMessage(data_n1)
 		dispMessage('o2 ,n2',170)
-		dispMessage(data_o2,190)
+
 		# dispMessage(ins_o2.passenger,100)
 
 		dispMessage('o3 ,n3',260)
-		dispMessage(data_o3,280)
+
 		# dispMessage(ins_o3.passenger,100)
 
 		floor_end=[400,370,340,310,280,250,220,190,160,130,100,70]
@@ -143,6 +146,14 @@ def rungame():
 
 
 		#NEW_ELEVATOR
+		passengerNum = 10
+		elevatorList = [ins_n1,ins_n2,ins_n3]
+		passengerListt = NEWFINALLLL.passengerGenerator(passengerNum)
+		passengerr = NEWFINALLLL.passengerSearch(passengerListt, t)
+		if passengerr != None:
+			NEWFINALLLL.elevatorCall(elevatorList, passengerr)
+			print()
+
 		ins_n1.move(int(round(pygame.time.get_ticks()/1000)))
 		ins_n2.move(int(round(pygame.time.get_ticks()/1000)))
 		ins_n3.move(int(round(pygame.time.get_ticks()/1000)))
@@ -152,11 +163,27 @@ def rungame():
 		pygame.draw.rect(gamePad,RED,n1,0)
 		pygame.draw.rect(gamePad,RED,n2,0)
 		pygame.draw.rect(gamePad,RED,n3,0)
-	
 
 
+		
 
+		data_o1 = "old[1] :passenger:%d \t floor:%d" %(ins_o1.passenger,ins_o1.presentFloor)
+		data_o2 = "old[2] :passenger:%d \t floor:%d" %(ins_o2.passenger,ins_o2.presentFloor)
+		data_o3 = "old[3] :passenger:%d \t floor:%d" %(ins_o3.passenger,ins_o3.presentFloor)
 
+		data_n1 = "new[1] :passenger:%d \t floor:%d" %(ins_n1.weight,ins_n1.floor)
+		data_n2 = "new[2] :passenger:%d \t floor:%d" %(ins_n2.weight,ins_n2.floor)
+		data_n3 = "new[3] :passenger:%d \t floor:%d" %(ins_n3.weight,ins_n3.floor)
+		dispMessage(data_o1,100)
+		dispMessage(data_o2,190)
+		dispMessage(data_o3,280)
+		dispMessage(data_n1,115)
+		dispMessage(data_n2,205)
+		dispMessage(data_n3,295)
+
+		#수송효율인데 아마 TMAX가 종료되는 시점에서 출력되는듯 합니다.
+		Throughput = str((ins_o1.objCount1+ins_o2.objCount2+ins_o3.objCount3)/TMAX)
+		dispMessage(Throughput,410)
  
 		t = t+1
 		print(t)
